@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@font-face {
+    font-family: 'pixel';
+    /* you can name this anything you want */
+    src: url('../../public/font.ttf');
+    /* update this path to your font file */
+}
+
+.App {
+    background-color: #121212;
+    /* Dark background */
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'pixel', sans-serif;
+}
+
+.App-header {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 100;
+}
+
+.smallYellowX {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #f7931a;
+    /* Bitcoin orange */
+    text-decoration: none;
+}
+
+.twitterIcon {
+    color: white;
+    font-size: 2rem;
+}
+
+.xWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.yellowX {
+    font-size: 10rem;
+    font-weight: bold;
+    color: #f7931a;
+    /* Bitcoin orange */
+}
+
+.yellowSubtext {
+    font-size: 2rem;
+    color: #f7931a;
+    /* Bitcoin orange */
+    margin-bottom: 20px;
+}
+
+.linksWrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+.link {
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
