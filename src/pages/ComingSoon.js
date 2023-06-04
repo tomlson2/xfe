@@ -7,7 +7,7 @@ function ComingSoon() {
             <div className="banner">
                 <div className="links-container">
                     <Link to="/">X</Link>
-                    <Link to="/coming-soon" className="nav-link">X-List</Link>
+                    <Link to="/x-list" className="nav-link">X-List</Link>
                     <Link to="/coming-soon" className="nav-link">X-Profile</Link>
                 </div>
             </div>
