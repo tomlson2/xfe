@@ -69,9 +69,21 @@ td {
     white-space: nowrap;
 }
 
-@media screen and (max-width: 600px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
+@media screen and (max-width: 650px) {
+    .table-container {
+        overflow-x: auto;
+    }
+    table {
+        width: 100%;
+    }
+    tr {
+        display: table-row;
+        border-bottom: hidden;
+    }
+    td {
+        display: table-cell;
+        max-width: none;
+        width: auto;
     }
 }
 
@@ -150,4 +162,8 @@ td {
   
   .odd {
     background-color: #121212; /* Odd rows background color */
+  }
+
+  .small-header {
+    white-space: nowrap; /* Prevent text wrapping */
   }

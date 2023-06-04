@@ -50,9 +50,9 @@ const Table = ({ data }) => {
 
   // these buttons now only appear if there is more data to be shown
   const showMoreButton =
-  rowsToShow < sortedData.length && sortedData.length > desiredRows ? (
-    <button onClick={handleClickShowMore}>Show More</button>
-  ) : null;
+    rowsToShow !== sortedData.length && sortedData.length > desiredRows ? (
+      <button onClick={handleClickShowMore}>Show More</button>
+    ) : null;
 
     const showLessButton =
     rowsToShow > desiredRows ? (
@@ -76,48 +76,76 @@ const Table = ({ data }) => {
     };
   }, []);
 
+  const isSmallScreen = window.innerWidth <= 600;
+
   return (
-    <div ref={tableContainerRef}>
-      <table>
-        <thead>
-          <tr>
-            <th onClick={() => handleSort("address")}>Address</th>
-            <th onClick={() => handleSort("og_alloc")}>100k Holdings</th>
-            <th onClick={() => handleSort("new_alloc")}>10k Allocations</th>
-            <th onClick={() => handleSort("burn")}>Burn Bonus</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedData.slice(0, rowsToShow).map((item, index) => (
-            <tr key={item.id} className={index % 2 === 0 ? "even" : "odd"}>
-              <td>
-                <a
-                  href={baseURL + item.address}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    display: "inline-block",
-                    maxWidth: "100%",
-                    overflow: "visible",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                    {item.address.length > maxLength
-                    ? `${item.address.substr(0, maxLength / 2)}...${item.address.substr(-maxLength / 2)}`
-                    : item.address}
-                </a>
-              </td>
-              <td>{item.og_alloc}</td>
-              <td>{item.new_alloc}</td>
-              <td>{item.burn}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-        <div className="button-container">
+    <div ref={tableContainerRef} class="table-container">
+          <table>
+    <thead>
+    <tr>
+          <th
+            onClick={() => handleSort("address")}
+            data-header="Addr"
+            className={isSmallScreen ? "small-header" : ""}
+          >
+            {isSmallScreen ? "Address" : "Address"}
+          </th>
+          <th
+            onClick={() => handleSort("og_alloc")}
+            data-header="100k"
+            className={isSmallScreen ? "small-header" : ""}
+          >
+            {isSmallScreen ? "100k holds" : "100k Holdings"}
+          </th>
+          <th
+            onClick={() => handleSort("new_alloc")}
+            data-header="10k"
+            className={isSmallScreen ? "small-header" : ""}
+          >
+            {isSmallScreen ? "10k Alloc" : "10k Allocations"}
+          </th>
+          <th
+            onClick={() => handleSort("burn")}
+            data-header="Burn"
+            className={isSmallScreen ? "small-header" : ""}
+          >
+            {isSmallScreen ? "Burn" : "Burn Bonus"}
+          </th>
+        </tr>
+    </thead>
+    <tbody>
+      {sortedData.slice(0, rowsToShow).map((item, index) => (
+        <tr key={item.id} className={index % 2 === 0 ? "even" : "odd"}>
+          <td>
+            <a
+              href={baseURL + item.address}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                display: "inline-block",
+                maxWidth: "100%",
+                overflow: "visible",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {item.address.length > maxLength
+                ? `${item.address.substr(0, maxLength / 2)}...${item.address.substr(
+                    -maxLength / 2
+                  )}`
+                : item.address}
+            </a>
+          </td>
+          <td>{item.og_alloc}</td>
+          <td>{item.new_alloc}</td>
+          <td>{item.burn}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+        <div class="button-container">
             {showMoreButton}
             {showLessButton}
         </div>
