@@ -22,22 +22,36 @@ h1 {
 
 button {
     display: block;
-    width: 200px;
-    height: 50px;
+    width: 150px;
+    height: 40px;
     margin: 20px auto;
-    background-color: #f7931a; /* Bitcoin orange */
-    color: #121212; /* Dark color for text */
+    background: linear-gradient(45deg, #f7931a, #ffbb58); /* Orange gradient */
+    color: #121212; /* White color for text */
     border: none;
     border-radius: 10px;
     cursor: pointer;
-}
+    font-family: inherit;
+    font-size: 18px;
+    text-align: center; /* Center the text */
+    text-transform: full-width;
+    letter-spacing: 0.2px; /* Add spacing between letters */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
+    transition: transform 0.1s, box-shadow 0.1s; /* Smooth transitions */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow */
+  }
 
 button:hover {
+    transform: scale(1.03); /* Increase button size on hover */
     background-color: #ffae34;
+    box-shadow: 0 0 2px rgba(247, 147, 26, 0.8); /* Glow effect on hover */
 }
 
+button:focus {
+    outline: none; /* Remove outline when button is focused */
+  }
+
 table {
-    width: 90%;
+    width: 75%;
     margin: 0 auto;
     border-collapse: collapse;
     text-align: left;
@@ -45,11 +59,11 @@ table {
 
 th, td {
     padding: 20px;
-    border-bottom: 1px solid #999;
+    border-bottom: none; /* Remove the border between table cells */
 }
 
 td {
-    max-width: 200px;
+    max-width: 275px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -94,3 +108,46 @@ td {
     text-decoration: none;
     font-size: 2em;
 }
+
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+    width: 50%;
+    margin: 0 auto;
+    padding-bottom: 25px; 
+    
+  }
+
+.searchInputs {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    padding-left: 11px;
+    border: none;
+    border-radius: 10px;
+    background-color: #1f1f1f;
+    color: #fff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(112, 112, 112, 0.7);
+    font-family: inherit;
+    font-size: 16px;
+  }
+
+  input.searchInputs[type="text"] {
+    background-color: #121212;
+    color: #fff;
+    width: 96.7%;
+  }
+  .button-container {
+    padding-bottom: 10px; /* Adjust the value to set the desired padding */
+}
+
+  .even {
+    background-color: #1d1d1d; /* Even rows background color */
+  }
+  
+  .odd {
+    background-color: #121212; /* Odd rows background color */
+  }
