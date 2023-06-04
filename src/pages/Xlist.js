@@ -127,9 +127,9 @@ function XList() {
                     />
                 </div>
             </div>
-            
+            <div class="table-container">
             <Table data={search(data1 || Xlistlist)}/> {/* use data1 from Requests if available*/}
-
+            </div>
 
             {/* <table>
                 <thead>
