@@ -31,10 +31,10 @@ function XList() {
 
     const search = (data) => {
         return data.filter(item =>
-          item.address.toLowerCase().includes(query) ||
-          (typeof item.og_alloc === 'number' && item.og_alloc >= query)
+          item.address.toLowerCase().includes(query.toLowerCase()) ||
+          (typeof item.og_alloc === 'number' && !isNaN(query) && item.og_alloc >= parseFloat(query))
         );
-    };
+      };
 
     return (
         <div>
