@@ -57,10 +57,21 @@ table {
     text-align: left;
 }
 
-th, td {
+td {
+    
     padding: 20px;
     border-bottom: none; /* Remove the border between table cells */
 }
+
+th {
+    cursor: pointer;
+    padding: 20px;
+    border-bottom: none; /* Remove the border between table cells */
+}
+
+th:hover {
+    color: #ffae34;
+  }
 
 td {
     max-width: 275px; /* if changing this value make sure the overflow isnt messing stuff up */
@@ -74,7 +85,7 @@ td {
         overflow-x: auto;
     }
     table {
-        width: 100%;
+        width: 97.5%;
     }
     tr {
         display: table-row;
@@ -85,6 +96,12 @@ td {
         max-width: none;
         width: auto;
     }
+    th {
+        display: table-cell;
+        white-space: pre-wrap;
+        word-break: break-word;
+        text-align: left;
+      }
 }
 
 .banner {
@@ -166,4 +183,15 @@ td {
 
   .small-header {
     white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  /* changes search bar to cover most of the screen if screen width is <= 650px */
+  @media (max-width: 650px) {
+    .search {
+      width: 85%; /* Increase width to 80% */
+    }
+  
+    .searchInputs {
+      width: 85%; /* Increase width to 90% */
+    }
   }
