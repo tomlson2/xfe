@@ -4,7 +4,7 @@ import './Xlist.css';
 
 import Table from "./table";
 import { Xlistlist } from '../Xlistlist'
-import PopupButton from '../ConnectWallets.jsx'
+import  PopupButton  from '../ConnectWallets.jsx';
 
 function XList() {
     const [wallet, setWallet] = useState(localStorage.getItem('wallet') || null);
@@ -91,6 +91,18 @@ function XList() {
         fetchData();
     }, []); // Empty dependency array to execute the effect only once
 
+    useEffect(() => {
+        if (data1 && PopupButton.ordinalsAddress !== null) {
+          // Perform your comparison with savedAddress here
+          if (data1.address === PopupButton.ordinalsAddress) {
+            console.log('Data address matches the saved address.');
+            console.log(PopupButton.ordinalsAddress)
+          } else {
+            console.log('Data address does not match the saved address.');
+          }
+        }
+      }, [data1]);
+
     const [query, setQuery] = useState("");
 
     const handleSearch = (e) => {
@@ -99,10 +111,10 @@ function XList() {
 
     const search = (data) => {
         return data.filter(item =>
-          item.address.toLowerCase().includes(query) ||
-          (typeof item.og_alloc === 'number' && item.og_alloc >= query)
+          item.address.toLowerCase().includes(query.toLowerCase()) ||
+          (typeof item.og_alloc === 'number' && !isNaN(query) && item.og_alloc >= parseFloat(query))
         );
-    };
+      };
 
     return (
         <div>

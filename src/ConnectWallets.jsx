@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getAddress } from 'sats-connect'
 
 
@@ -7,7 +7,7 @@ const PopupButton = () => {
   const [wallet, setWallet] = useState(localStorage.getItem('wallet') || null);
   const [inscriptions, setInscriptions] = useState([]);
   const [newAddress, setNewAddress] = useState('');
-  const [ordinalsAddress, setOrdinalsAddress] = useState(localStorage.getItem('ordinalsAddress') || '');
+  const [ordinalsAddress, setOrdinalsAddress] = useState(null);
 
   const openPopup = () => {
     setIsOpen(true);
@@ -16,6 +16,13 @@ const PopupButton = () => {
   const closePopup = () => {
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    const storedAddress = localStorage.getItem('ordinalsAddress');
+    if (storedAddress) {
+      setOrdinalsAddress(storedAddress || null); // Set to null if storedAddress is falsy);
+    }
+  }, []);
 
   const handleGetAddressUniSat = async () => {
     if (window.unisat) {
@@ -67,6 +74,13 @@ const PopupButton = () => {
       console.error('Error:', error);
     }
   };
+
+  useEffect(() => {
+    if (ordinalsAddress) {
+      // Do something with the ordinalsAddress, e.g., send it to a parent component or an API
+      console.log('Ordinals Address:', ordinalsAddress);
+    }
+  }, [ordinalsAddress]);
 
   return (
     <div>
@@ -151,4 +165,4 @@ const PopupButton = () => {
   );
 };
 
-export default PopupButton;
+export default PopupButton; 
