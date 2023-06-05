@@ -76,42 +76,72 @@ const Table = ({ data }) => {
     };
   }, []);
 
-  const isSmallScreen = window.innerWidth <= 600;
+  const isSmallScreen = window.innerWidth <= 650;
 
   return (
     <div ref={tableContainerRef} class="table-container">
           <table>
     <thead>
-    <tr>
-          <th
+      <tr>
+        <th
             onClick={() => handleSort("address")}
             data-header="Addr"
             className={isSmallScreen ? "small-header" : ""}
-          >
-            {isSmallScreen ? "Address" : "Address"}
-          </th>
-          <th
-            onClick={() => handleSort("og_alloc")}
-            data-header="100k"
-            className={isSmallScreen ? "small-header" : ""}
-          >
-            {isSmallScreen ? "100k holds" : "100k Holdings"}
-          </th>
-          <th
+        >
+            {isSmallScreen ? (
+            <div>
+                Address
+            </div>
+            ) : (
+            "Address"
+            )}
+        </th>
+        <th
             onClick={() => handleSort("new_alloc")}
             data-header="10k"
             className={isSmallScreen ? "small-header" : ""}
-          >
-            {isSmallScreen ? "10k Alloc" : "10k Allocations"}
-          </th>
-          <th
+        >
+            {isSmallScreen ? (
+            <div>
+                $XMYR
+                <br />
+                Alloc
+            </div>
+            ) : (
+            "$XMYR Allocations"
+            )}
+        </th>
+        <th
+            onClick={() => handleSort("og_alloc")}
+            data-header="100k"
+            className={isSmallScreen ? "small-header" : ""}
+        >
+            {isSmallScreen ? (
+            <div>
+                100k
+                <br />
+                Hold
+            </div>
+            ) : (
+            "100k Holdings"
+            )}
+        </th>
+        <th
             onClick={() => handleSort("burn")}
             data-header="Burn"
             className={isSmallScreen ? "small-header" : ""}
-          >
-            {isSmallScreen ? "Burn" : "Burn Bonus"}
-          </th>
-        </tr>
+        >
+            {isSmallScreen ? (
+            <div>
+                Burn
+                <br />
+                Bonus
+            </div>
+            ) : (
+            "Burn Bonus"
+            )}
+        </th>
+      </tr>
     </thead>
     <tbody>
       {sortedData.slice(0, rowsToShow).map((item, index) => (
@@ -138,8 +168,8 @@ const Table = ({ data }) => {
                 : item.address}
             </a>
           </td>
-          <td>{item.og_alloc}</td>
           <td>{item.new_alloc}</td>
+          <td>{item.og_alloc}</td>
           <td>{item.burn}</td>
         </tr>
       ))}
