@@ -16,16 +16,15 @@ const BTCAzukiSearch = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(
-                'https://brc721.cc/ord-api/nft-data?tick=Bitcoin-Azuki'
-            );
-            setData(response.data.data);
-            setIsLoading(false);
+          const response = await fetch('/a.json');
+          const jsonData = await response.json();
+          setData(jsonData.data);
+          setIsLoading(false);
         } catch (error) {
-            console.error('Error fetching data:', error);
+          console.error('Error fetching data:', error);
         }
-    };
-
+      };
+      
     const handleSearch = () => {
         const result = data.find((item) =>
             String(item.Inscription_Id).includes(searchTerm)
@@ -40,6 +39,10 @@ const BTCAzukiSearch = () => {
     const handleShowMore = () => {
         setVisibleItems(visibleItems + 6); // Increase the number of visible items
     };
+
+    useEffect(() => {
+        fetchData();
+      }, []);
 
     return (
         <div>
