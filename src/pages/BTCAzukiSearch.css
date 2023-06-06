@@ -1,0 +1,40 @@
+.marketplace {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+  }
+  
+  .marketplace-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .marketplace-item img {
+    width: 200px;
+    height: auto;
+  }
+  
+  .marketplace-item p {
+    margin-top: 10px;
+  }
+
+  .no-result {
+    margin-top: 1em;
+  }
+  
+  .loading {
+    /* Your styles for the loading class */
+    text-align: center;
+  }
+  
+  .num-inscriptions {
+    /* Your styles for the num-inscriptions class */
+    text-align: center;
+  }
+
+  .search-results {
+    text-align: center;
+  }
