@@ -8,6 +8,7 @@ const BTCAzukiSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [visibleItems, setVisibleItems] = useState(6); // Number of items initially visible
 
     useEffect(() => {
         fetchData();
@@ -26,14 +27,18 @@ const BTCAzukiSearch = () => {
     };
 
     const handleSearch = () => {
-        const result = data.find(
-            (item) => String(item.deploy_id).includes(searchTerm)
+        const result = data.find((item) =>
+            String(item.Inscription_Id).includes(searchTerm)
         );
-        setSearchResult(result || null); // Set searchResult to null if no result is found
+        setSearchResult(result || null);
     };
 
     const handleShowAll = () => {
         setSearchResult(null);
+    };
+
+    const handleShowMore = () => {
+        setVisibleItems(visibleItems + 6); // Increase the number of visible items
     };
 
     return (
@@ -50,43 +55,64 @@ const BTCAzukiSearch = () => {
                 </div>
             </div>
             <h1>BTC Azuki Search</h1>
-            {isLoading ? (
-                <h2 className="loading">Loading...</h2>
-            ) : (
-                <h2 className="num-inscriptions">
-                    Number of Inscriptions: {data.length}
-                </h2>
-            )}
-
             <div className="search-results">
                 <div className="search">
                     <input
                         className="searchInputs"
                         type="text"
                         value={searchTerm}
-                        onChange={e => setSearchTerm(e.target.value)}
-                        placeholder="Search deploy ID"
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Search Inscription ID"
+                        disabled={isLoading} // Disable search bar until data is loaded
                     />
-                    <button onClick={handleSearch}>Search</button>
+                    <button onClick={handleSearch} disabled={isLoading}>
+                        Search
+                    </button>
                 </div>
-                <div className="marketplace">
+
+            </div>
+            {isLoading ? (
+                <h2 className="loading">Loading...</h2>
+            ) : (
+                <>
+                    <h2 className="num-inscriptions">
+                        Number of Inscriptions: {data.length}
+                    </h2>
                     {searchResult && (
-                        <div className="marketplace-item">
-                            <img
-                                src={`https://ipfs.io/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/${searchResult.token_id - 1
-                                    }.png`}
-                                alt={`Image for ${searchResult.Inscription_Id}`}
-                            />
-                            <p>{searchResult.deploy_id}</p>
+                        <div className="marketplace">
+                            <div className="marketplace-item">
+                                <img
+                                    src={`https://ipfs.io/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/${searchResult.token_id - 1
+                                        }.png`}
+                                    alt={`Image for ${searchResult.Inscription_Id}`}
+                                />
+                                <p>{searchResult.token_id - 1}</p>
+                            </div>
                         </div>
                     )}
-                    {!searchResult && searchTerm && (
-                        <p className="no-result">No search result</p>
+
+                    <div className="marketplace">
+                        {data.slice(0, visibleItems).reverse().map((item) => (
+                            <div className="marketplace-item" key={item.Inscription_Id}>
+                                <img
+                                    src={`https://ipfs.io/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/${item.token_id - 1
+                                        }.png`}
+                                    alt={`Image for ${item.Inscription_Id}`}
+                                />
+                                <p>{item.token_id - 1}</p>
+                            </div>
+                        ))}
+                    </div>
+                    {visibleItems < data.length && (
+                        <button className="show-more" onClick={handleShowMore}>
+                            Show More
+                        </button>
                     )}
-                </div>
-            </div>
-        </div >
+                </>
+            )}
+        </div>
     );
 };
 
 export default BTCAzukiSearch;
+
