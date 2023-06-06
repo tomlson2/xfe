@@ -10,8 +10,6 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    transform: scale(1.5);
-    /* Increase the size of the search result image */
 }
 
 .marketplace-item img {

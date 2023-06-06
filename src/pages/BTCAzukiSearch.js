@@ -92,7 +92,7 @@ const BTCAzukiSearch = () => {
                     )}
 
                     <div className="marketplace">
-                        {data.slice(0, visibleItems).reverse().map((item) => (
+                        {data.slice(-visibleItems).map((item) => (
                             <div className="marketplace-item" key={item.Inscription_Id}>
                                 <img
                                     src={`https://ipfs.io/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/${item.token_id - 1
