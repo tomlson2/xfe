@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import XListPage from './pages/Xlist';
 import ComingSoon from './pages/ComingSoon';
 import BTCAzukiSearch from './pages/BTCAzukiSearch';
+import BEANZSearch from './pages/BEANZSearch';
 import GamePage from './pages/GamePage';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/x-list" element={<XListPage />} />
         <Route path="/coming-soon" element={<ComingSoon />} />
         <Route path='/azuki-search' element={<BTCAzukiSearch />} />
+        <Route path='/beanz-search' element={<BEANZSearch />} />
         <Route path='/game' element={<GamePage />} />
       </Routes>
     </Router>

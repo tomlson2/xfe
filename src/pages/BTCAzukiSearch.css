@@ -1,4 +1,5 @@
 .marketplace {
+    margin-top: 50px;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 20px;
@@ -14,6 +15,7 @@
 
 .marketplace-item img {
     width: 200px;
+    border-radius: 25px;
     height: auto;
 }
 
