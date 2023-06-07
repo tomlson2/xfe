@@ -41,6 +41,8 @@ const BTCAzukiSearch = () => {
         setVisibleItems(visibleItems + 6); // Increase the number of visible items
     };
 
+    const myString = '{"p": "brc-721","op": "mint","tick":"Bitcoin BEANZ","id":"11055100","ipfs":"ipfs://QmdYeDpkVZedk1mkGodjNmF35UNxwafhFLVvsHrWgJoz6A/beanz_metadata/"}';
+
     useEffect(() => {
         fetchData();
       }, []);
@@ -60,6 +62,12 @@ const BTCAzukiSearch = () => {
             </div>
             <h1>BTC BEANZ Search</h1>
             <div className="search-results">
+                <code>
+                {myString}
+                </code>
+                <br />
+                <br />
+                <Link to="https://unisat.io/inscribe">COPY THAT AND TEXT INSCRIBE HERE</Link>
                 <div className="search">
                     <input
                         className="searchInputs"
