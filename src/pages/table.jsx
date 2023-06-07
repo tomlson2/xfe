@@ -104,13 +104,13 @@ const Table = ({ data }) => {
           >
             {isSmallScreen ? "10k Alloc" : "10k Allocations"}
           </th>
-          <th
+          {/* <th
             onClick={() => handleSort("burn")}
             data-header="Burn"
             className={isSmallScreen ? "small-header" : ""}
           >
             {isSmallScreen ? "Burn" : "Burn Bonus"}
-          </th>
+          </th> */}
         </tr>
     </thead>
     <tbody>
