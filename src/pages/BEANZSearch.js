@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import './BTCAzukiSearch.css'; // Import the CSS file
+import './BTCAzukiSearch.css';
 
 const BTCAzukiSearch = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [visibleItems, setVisibleItems] = useState(6); // Number of items initially visible
+  const [visibleItems, setVisibleItems] = useState(6);
 
   useEffect(() => {
     fetchData();
@@ -32,7 +32,7 @@ const BTCAzukiSearch = () => {
       const promises = [];
       
       for (let page = 1; page <= 5; page++) {
-        const url = `https://api.hiro.so/ordinals/v1/inscriptions?address=${wallet}&limit=60&page=${page}`;
+        const url = `https://api.hiro.so/ordinals/v1/inscriptions?address=${searchTerm}&limit=60&page=${page}`;
         promises.push(axios.get(url));
       }
       
@@ -91,7 +91,7 @@ const BTCAzukiSearch = () => {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search Inscription ID or Wallet Address"
+            placeholder="Wallet Address"
             disabled={isLoading}
           />
           <button onClick={handleSearch} disabled={isLoading}>
@@ -103,6 +103,7 @@ const BTCAzukiSearch = () => {
         <h2 className="loading">Loading...</h2>
       ) : (
         <>
+          <h1 className="num-inscriptions">DISCLAIMER: THIS IMAGE IS DISPLAYED FROM A LINK THAT COMES FROM DATA INSCRIBED ON BITCOIN. THEY ARE NOT FOR FINANCIAL GAIN, WE DO NOT OWN RIGHTS TO THESE IMAGES.{data.length}</h1>
           <h2 className="num-inscriptions">Number of Inscriptions: {data.length}</h2>
           {searchResult ? (
             <div className="marketplace">
