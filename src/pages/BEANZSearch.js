@@ -4,27 +4,26 @@ import { Link } from 'react-router-dom';
 import './BTCAzukiSearch.css';
 
 const BTCAzukiSearch = () => {
-  const [data, setData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResult, setSearchResult] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [visibleItems, setVisibleItems] = useState(6);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        'https://brc721.cc/ord-api/nft-data?tick=Bitcoin%20BEANZ&page=0&limit=19500'
-      );
-      setData(response.data.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+    const [data, setData] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResult, setSearchResult] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [visibleItems, setVisibleItems] = useState(6);
+  
+    useEffect(() => {
+      fetchData();
+    }, []);
+  
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('data.json'); // Replace 'data.json' with your JSON file path
+        setData(response.data.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
 
   const handleSearch = async () => {
     try {
