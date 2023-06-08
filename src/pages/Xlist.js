@@ -1,30 +1,55 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Xlist.css';
+import Table from './table';
+import { Xlistlist } from '../Xlistlist';
+import PopupButton from '../ConnectWallets.jsx';
 
-import Table from "./table";
-import { Xlistlist } from '../Xlistlist'
-import  PopupButton  from '../ConnectWallets.jsx';
+const XList = () => {
+  const fakeAddress = 'bc1paa95ws5wdd9uzvzerd9zgk07ys8c0jjt8fr207dwu0938pskrenqjgd0d7';
+  const [unisatWallet, setUnisatWallet] = useState(localStorage.getItem('wallet') || null);
+  const [xverseWallet, setXverseWallet] = useState(localStorage.getItem('ordinalsAddress') || null);
+  const [data1, setData1] = useState(null);
 
-function XList() {
-    const [wallet, setWallet] = useState(localStorage.getItem('wallet') || null);
-    const [data1, setData1] = useState(null); // Initialize the state with null
+  const handleWalletChange = (wallet) => {
+    setUnisatWallet(wallet);
+    localStorage.setItem('wallet', wallet);
+  };
 
-    useEffect(() => {
-        if (window.unisat && window.unisat.getInscriptions) {
-            console.log('getInscriptions method is available');
-        } else {
-            console.error('getInscriptions method is not available');
-        }
-    }, []);
+  const handleOrdinalsAddressChange = (ordinalsAddress) => {
+    setXverseWallet(ordinalsAddress);
+    localStorage.setItem('ordinalsAddress', ordinalsAddress);
+  };
 
-    useEffect(() => {
-        if (window.unisat) {
-            console.log('UniSat Wallet is available');
-        } else {
-            console.error('UniSat Wallet is not available');
-        }
-    }, []);
+  useEffect(() => {
+    // Perform your comparison with savedAddress here
+    const foundItem = data1 && data1.find(item => item.address === (unisatWallet || xverseWallet));
+    if (foundItem) {
+      console.log('Data address matches the saved address.');
+      console.log(unisatWallet || xverseWallet);
+    } else {
+      console.log('Data address does not match the saved address.');
+      console.log(unisatWallet || xverseWallet);
+    }
+  }, [data1, unisatWallet, xverseWallet]);  
+
+
+    // useEffect(() => {
+    //     if (window.unisat && window.unisat.getInscriptions) {
+    //         console.log('getInscriptions method is available');
+    //     } else {
+    //         console.error('getInscriptions method is not available');
+    //     }
+    // }, []);
+
+    // useEffect(() => {
+    //     if (window.unisat) {
+    //         console.log('UniSat Wallet is available');
+    //     } else {
+    //         console.error('UniSat Wallet is not available');
+    //     }
+    // }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,17 +66,7 @@ function XList() {
         fetchData();
     }, []); // Empty dependency array to execute the effect only once
 
-    useEffect(() => {
-        if (data1 && PopupButton.ordinalsAddress !== null) {
-          // Perform your comparison with savedAddress here
-          if (data1.address === PopupButton.ordinalsAddress) {
-            console.log('Data address matches the saved address.');
-            console.log(PopupButton.ordinalsAddress)
-          } else {
-            console.log('Data address does not match the saved address.');
-          }
-        }
-      }, [data1]);
+
 
     const [query, setQuery] = useState("");
 
@@ -77,7 +92,7 @@ function XList() {
                 
                 {/* {wallet && <p className="address">Welcome ..{wallet.slice(-5)}!</p>} */}
                 {/* {!wallet && <button onClick={connectWallet}>Connect Wallet</button>} */}
-                <PopupButton />
+                <PopupButton onWalletChange={handleWalletChange} onOrdinalsAddressChange={handleOrdinalsAddressChange}/>
             </div>
             <h1>X-List</h1>
             <div className='search'>

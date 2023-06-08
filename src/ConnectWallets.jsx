@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAddress } from 'sats-connect'
 
 
-const PopupButton = () => {
+const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [wallet, setWallet] = useState(localStorage.getItem('wallet') || null);
   const [ordinalsAddress, setOrdinalsAddress] = useState(null);
@@ -34,6 +34,7 @@ const PopupButton = () => {
   
     if (savedWallet) {
       setWallet(savedWallet);
+      onWalletChange(savedWallet)
       // Show popup indicating wallet is already connected
       openPopupMessage('Wallet is already connected');
       closePopup(); // Close the popup after showing the alert
@@ -44,6 +45,7 @@ const PopupButton = () => {
           console.log(accounts[0]);
           setWallet(accounts[0]);
           localStorage.setItem('wallet', accounts[0]);
+          onWalletChange(accounts[0])
           closePopup(); // Close the popup after connecting the wallet
         }
       } catch (err) {
@@ -61,6 +63,7 @@ const PopupButton = () => {
   
     if (savedOrdinalsAddress) {
       setOrdinalsAddress(savedOrdinalsAddress);
+      onOrdinalsAddressChange(savedOrdinalsAddress);
       // Show popup indicating address is already connected
       openPopupMessage('Address is already connected');
       closePopup(); // Close the popup after showing the alert
@@ -82,6 +85,7 @@ const PopupButton = () => {
             const ordinalsAddress = address.address;
             setOrdinalsAddress(ordinalsAddress);
             localStorage.setItem('ordinalsAddress', ordinalsAddress);
+            onOrdinalsAddressChange(ordinalsAddress);
           } else {
             // Handle case when address with purpose "ordinals" is not found
             openPopupMessage('No Xverse wallet found');
@@ -89,7 +93,10 @@ const PopupButton = () => {
   
           closePopup(); // Close the popup after receiving the address
         },
-        onCancel: () => openPopupMessage('Request canceled'),
+        onCancel: () => {
+          openPopupMessage('Request canceled');
+          closePopup();
+        },
       };
   
       try {
@@ -121,7 +128,7 @@ const PopupButton = () => {
           
           <button className="close-button" onClick={() => setIsPopupOpen(false)}>Close</button>
           
-            <div >
+            <div className="message-content">
             {popupMessage}
             </div>
           
@@ -278,9 +285,15 @@ const PopupButton = () => {
           white-space: nowrap;
         }
 
+        .message-content {
+          font-size: 18px;
+          max-width: 70%;
+        }
+
       `}</style>
     </div>
   );
 };
+
 
 export default PopupButton; 

@@ -33,7 +33,7 @@ button {
     font-family: inherit;
     font-size: 18px;
     text-align: center; /* Center the text */
-    text-transform: full-width;
+    text-transform: none;
     letter-spacing: 0.2px; /* Add spacing between letters */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
     transition: transform 0.1s, box-shadow 0.1s; /* Smooth transitions */
