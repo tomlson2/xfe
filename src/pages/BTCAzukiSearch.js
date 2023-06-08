@@ -8,7 +8,7 @@ const BTCAzukiSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [visibleItems, setVisibleItems] = useState(6);
+    const [visibleItems, setVisibleItems] = useState(30);
   
     useEffect(() => {
       fetchData();
