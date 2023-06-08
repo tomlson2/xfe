@@ -8,7 +8,7 @@ const BTCAzukiSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [visibleItems, setVisibleItems] = useState(6);
+    const [visibleItems, setVisibleItems] = useState(20);
   
     useEffect(() => {
       fetchData();
@@ -30,12 +30,13 @@ const BTCAzukiSearch = () => {
       const wallet = 'bc1paa95ws5wdd9uzvzerd9zgk07ys8c0jjt8fr207dwu0938pskrenqjgd0d7';
       const promises = [];
       
-      for (let page = 1; page <= 5; page++) {
+      for (let page = 1; page <= 10; page++) {
         const url = `https://api.hiro.so/ordinals/v1/inscriptions?address=${searchTerm}&limit=60&page=${page}`;
         promises.push(axios.get(url));
       }
       
       const responses = await Promise.all(promises);
+      console.log(responses)
       const inscriptionData = responses.flatMap(response => response.data.results);
       console.log(inscriptionData);
       
@@ -43,6 +44,7 @@ const BTCAzukiSearch = () => {
         const matchingInscriptions = data.filter((item) =>
         inscriptionData.some((inscription) => inscription.id === item.Inscription_Id)
       );
+
       console.log(matchingInscriptions);
       setSearchResult(matchingInscriptions);
       
