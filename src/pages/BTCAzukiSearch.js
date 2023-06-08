@@ -79,7 +79,6 @@ const BTCAzukiSearch = () => {
         </div>
         <h1>Bitcoin-Azuki Search</h1>
         <div className="search-results">
-          <code>{myString}</code>
           <br />
           <div className="search">
             <input
