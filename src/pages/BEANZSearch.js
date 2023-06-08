@@ -25,37 +25,32 @@ const BTCAzukiSearch = () => {
     };
   
 
-  const handleSearch = async () => {
-    try {
-      const wallet = 'bc1paa95ws5wdd9uzvzerd9zgk07ys8c0jjt8fr207dwu0938pskrenqjgd0d7';
-      const promises = [];
+    const handleSearch = async () => {
+        try {
+          const wallet = 'bc1paa95ws5wdd9uzvzerd9zgk07ys8c0jjt8fr207dwu0938pskrenqjgd0d7';
+          const promises = [];
       
-      for (let page = 1; page <= 10; page++) {
-        const url = `https://api.hiro.so/ordinals/v1/inscriptions?address=${searchTerm}&limit=60&page=${page}`;
-        promises.push(axios.get(url));
-      }
+          for (let page = 0; page <= 15; page++) {
+            const url = `https://api.hiro.so/ordinals/v1/inscriptions?address=${searchTerm}&limit=60&offset=${60 * page}`;
+            promises.push(axios.get(url));
+          }
       
-      const responses = await Promise.all(promises);
-      console.log(responses)
-      const inscriptionData = responses.flatMap(response => response.data.results);
-      console.log(inscriptionData);
+          const responses = await Promise.all(promises);
+          const inscriptionData = responses.flatMap(response => response.data.results);
       
-      if (inscriptionData.length > 0) {
-        const matchingInscriptions = data.filter((item) =>
-        inscriptionData.some((inscription) => inscription.id === item.Inscription_Id)
-      );
-
-      console.log(matchingInscriptions);
-      setSearchResult(matchingInscriptions);
+          if (inscriptionData.length > 0) {
+            const matchingInscriptions = data.filter(item =>
+              inscriptionData.some(inscription => inscription.id === item.Inscription_Id)
+            );
       
-        setSearchResult(matchingInscriptions);
-      } else {
-        setSearchResult(null);
-      }
-    } catch (error) {
-      console.error('Error fetching inscription data:', error);
-    }
-  };
+            setSearchResult(matchingInscriptions);
+          } else {
+            setSearchResult(null);
+          }
+        } catch (error) {
+          console.error('Error fetching inscription data:', error);
+        }
+      };
 
   const handleShowAll = () => {
     setSearchResult(null);
@@ -107,17 +102,17 @@ const BTCAzukiSearch = () => {
         <h1 className="num-inscriptions">WE DO NOT OWN NOR CLAIM RIGHTS TO THESE IMAGES: This image Is NOT stored on Bitcoin and these Ordinals are NOT Digital Artifacts. The image is generated from the link in the inscription and we did not deploy them.</h1>
           <h2 className="num-inscriptions">Number of Inscriptions: {data.length}</h2>
           {searchResult ? (
-            <div className="marketplace">
-              {searchResult.map((item) => (
-                <div className="marketplace-item" key={item.Inscription_Id}>
-                  <img
-                    src={`https://ipfs.io/ipfs/QmTRuWHr7bpqscUWFmhXndzf5AdQqkekhqwgbyJCqKMHrL/${item.token_id}.png`}
-                    alt={`Image for ${item.Inscription_Id}`}
-                  />
-                  <p>{item.token_id}</p>
-                </div>
-              ))}
-            </div>
+  <div className="marketplace">
+    {searchResult.map((item) => (
+      <div className="marketplace-item" key={item.Inscription_Id}>
+        <img
+          src={`https://ipfs.io/ipfs/QmTRuWHr7bpqscUWFmhXndzf5AdQqkekhqwgbyJCqKMHrL/${item.token_id}.png`}
+          alt={`Image for ${item.Inscription_Id}`}
+        />
+        <p>{item.token_id}</p>
+      </div>
+    ))}
+  </div>
           ) : (
             <div className="marketplace">
               {data
