@@ -103,7 +103,7 @@ const BTCAzukiSearch = () => {
         <h2 className="loading">Loading...</h2>
       ) : (
         <>
-          <h1 className="num-inscriptions">DISCLAIMER: THIS IMAGE IS DISPLAYED FROM A LINK THAT COMES FROM DATA INSCRIBED ON BITCOIN. THEY ARE NOT FOR FINANCIAL GAIN, WE DO NOT OWN RIGHTS TO THESE IMAGES.</h1>
+        <h1 className="num-inscriptions">WE DO NOT OWN NOR CLAIM RIGHT TO THESE IMAGE: This image Is NOT stored on Bitcoin and these Ordinals are NOT Digital Artifacts. The image is generated from the link in the inscription and we did not deploy them.</h1>
           <h2 className="num-inscriptions">Number of Inscriptions: {data.length}</h2>
           {searchResult ? (
             <div className="marketplace">
