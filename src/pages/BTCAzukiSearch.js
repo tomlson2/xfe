@@ -8,114 +8,147 @@ const BTCAzukiSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [visibleItems, setVisibleItems] = useState(6); // Number of items initially visible
-
+    const [visibleItems, setVisibleItems] = useState(6);
+  
     useEffect(() => {
-        fetchData();
+      fetchData();
     }, []);
-
+  
     const fetchData = async () => {
-        try {
-          const response = await fetch('/a.json');
-          const jsonData = await response.json();
-          setData(jsonData.data);
-          setIsLoading(false);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-      
-    const handleSearch = () => {
-        const result = data.find((item) =>
-            String(item.Inscription_Id).includes(searchTerm)
+      try {
+        const response = await axios.get(
+          'https://brc721.cc/ord-api/nft-data?tick=Bitcoin-Azuki&page=0&limit=10000'
         );
-        setSearchResult(result || null);
+        setData(response.data.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
-
+  
+    const handleSearch = async () => {
+      try {
+        const wallet = 'bc1paa95ws5wdd9uzvzerd9zgk07ys8c0jjt8fr207dwu0938pskrenqjgd0d7';
+        const promises = [];
+        
+        for (let page = 1; page <= 5; page++) {
+          const url = `https://api.hiro.so/ordinals/v1/inscriptions?address=${searchTerm}&limit=60&page=${page}`;
+          promises.push(axios.get(url));
+        }
+        
+        const responses = await Promise.all(promises);
+        const inscriptionData = responses.flatMap(response => response.data.results);
+        console.log(inscriptionData);
+        
+        if (inscriptionData.length > 0) {
+          const matchingInscriptions = data.filter((item) =>
+          inscriptionData.some((inscription) => inscription.id === item.Inscription_Id)
+        );
+        console.log(matchingInscriptions);
+        setSearchResult(matchingInscriptions);
+        
+          setSearchResult(matchingInscriptions);
+        } else {
+          setSearchResult(null);
+        }
+      } catch (error) {
+        console.error('Error fetching inscription data:', error);
+      }
+    };
+  
     const handleShowAll = () => {
-        setSearchResult(null);
+      setSearchResult(null);
     };
-
+  
     const handleShowMore = () => {
-        setVisibleItems(visibleItems + 6); // Increase the number of visible items
+      setVisibleItems(visibleItems + 6); // Increase the number of visible items
     };
-
-    useEffect(() => {
-        fetchData();
-      }, []);
-
+  
+    const myString = '{"p": "brc-721","op": "mint","tick":"Bitcoin BEANZ","id":"11055100","ipfs":"ipfs://QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/"}';
+  
     return (
-        <div>
-            <div className="banner">
-                <div className="links-container">
-                    <Link to="/">X</Link>
-                    <Link to="/x-list" className="nav-link">
-                        X-List
-                    </Link>
-                    <Link to="/coming-soon" className="nav-link">
-                        X-Profile
-                    </Link>
-                </div>
-            </div>
-            <h1>BTC Azuki Search</h1>
-            <div className="search-results">
-                <div className="search">
-                    <input
-                        className="searchInputs"
-                        type="text"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Search Inscription ID"
-                        disabled={isLoading} // Disable search bar until data is loaded
-                    />
-                    <button onClick={handleSearch} disabled={isLoading}>
-                        Search
-                    </button>
-                </div>
-
-            </div>
-            {isLoading ? (
-                <h2 className="loading">Loading...</h2>
-            ) : (
-                <>
-                    <h2 className="num-inscriptions">
-                        Number of Inscriptions: {data.length}
-                    </h2>
-                    {searchResult && (
-                        <div className="marketplace">
-                            <div className="marketplace-item">
-                                <img
-                                    src={`https://ipfs.io/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/${searchResult.token_id - 1
-                                        }.png`}
-                                    alt={`Image for ${searchResult.Inscription_Id}`}
-                                />
-                                <p>{searchResult.token_id - 1}</p>
-                            </div>
-                        </div>
-                    )}
-
-                    <div className="marketplace">
-                        {data.slice(-visibleItems).map((item) => (
-                            <div className="marketplace-item" key={item.Inscription_Id}>
-                                <img
-                                    src={`https://ipfs.io/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/${item.token_id - 1
-                                        }.png`}
-                                    alt={`Image for ${item.Inscription_Id}`}
-                                />
-                                <p>{item.token_id - 1}</p>
-                            </div>
-                        ))}
-                    </div>
-                    {visibleItems < data.length && (
-                        <button className="show-more" onClick={handleShowMore}>
-                            Show More
-                        </button>
-                    )}
-                </>
-            )}
+      <div>
+        <div className="banner">
+          <div className="links-container">
+            <Link to="/">X</Link>
+            <Link to="/x-list" className="nav-link">
+              X-List
+            </Link>
+            <Link to="/coming-soon" className="nav-link">
+              X-Profile
+            </Link>
+          </div>
         </div>
-    );
-};
+        <h1>BTC BEANZ Search</h1>
+        <div className="search-results">
+          <code>{myString}</code>
+          <br />
+          <br />
+          <Link to="https://unisat.io/inscribe">COPY THAT AND TEXT INSCRIBE HERE</Link>
+          <div className="search">
+            <input
+              className="searchInputs"
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Wallet Address"
+              disabled={isLoading}
+            />
+            <button onClick={handleSearch} disabled={isLoading}>
+              Search
+            </button>
+          </div>
+        </div>
+        {isLoading ? (
+          <h2 className="loading">Loading...</h2>
+        ) : (
+          <>
+            <h1 className="num-inscriptions">DISCLAIMER: THIS IMAGE IS DISPLAYED FROM A LINK THAT COMES FROM DATA INSCRIBED ON BITCOIN. THEY ARE NOT FOR FINANCIAL GAIN, WE DO NOT OWN RIGHTS TO THESE IMAGES.</h1>
+            <h2 className="num-inscriptions">Number of Inscriptions: {data.length}</h2>
+            {searchResult ? (
+              <div className="marketplace">
+                {searchResult.map((item) => (
+                  <div className="marketplace-item" key={item.Inscription_Id}>
+                    <img
+                      src={`https://ipfs.io/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/${item.token_id}.png`}
+                      alt={`Image for ${item.Inscription_Id}`}
+                    />
+                    <p>{item.token_id}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="marketplace">
+                {data
+                  .filter(
+                    (item) =>
+                      item.Inscription_Id.includes(searchTerm) ||
+                      item.ordinalsAddress === searchTerm
+                  )
+                  .slice(-visibleItems)
+                  .map((item) => (
+                    <div className="marketplace-item" key={item.Inscription_Id}>
+                      <img
+                        src={`https://ipfs.io/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/${
+                          item.token_id - 1
+                        }.png`}
+                        alt={`Image for ${item.Inscription_Id}`}
+                      />
+                      <p>{item.token_id - 1}</p>
+                    </div>
+                  ))}
+              </div>
+            )}
+            {visibleItems < data.length && (
+              <button className="show-more" onClick={handleShowMore}>
+                Show More
+              </button>
+            )}
+          </>
+        )}
+      </div>
+    );  
+  };
 
 export default BTCAzukiSearch;
 
