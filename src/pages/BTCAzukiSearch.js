@@ -64,8 +64,6 @@ const BTCAzukiSearch = () => {
       setVisibleItems(visibleItems + 6); // Increase the number of visible items
     };
   
-    const myString = '{"p": "brc-721","op": "mint","tick":"Bitcoin BEANZ","id":"11055100","ipfs":"ipfs://QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/"}';
-  
     return (
       <div>
         <div className="banner">
@@ -79,12 +77,10 @@ const BTCAzukiSearch = () => {
             </Link>
           </div>
         </div>
-        <h1>BTC BEANZ Search</h1>
+        <h1>Bitcoin-Azuki Search</h1>
         <div className="search-results">
           <code>{myString}</code>
           <br />
-          <br />
-          <Link to="https://unisat.io/inscribe">COPY THAT AND TEXT INSCRIBE HERE</Link>
           <div className="search">
             <input
               className="searchInputs"

@@ -79,7 +79,7 @@ const BTCAzukiSearch = () => {
           </Link>
         </div>
       </div>
-      <h1>BTC BEANZ Search</h1>
+      <h1>Bitcoin BEANZ Search</h1>
       <div className="search-results">
         <code>{myString}</code>
         <br />
