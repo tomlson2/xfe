@@ -125,7 +125,7 @@ td {
     display: flex;
     justify-content: center;
     align-items: center !important;
-    width: 50%;
+    width: 70%;
     margin: 0 auto;
     padding-bottom: 25px; 
     
@@ -136,7 +136,7 @@ td {
     display: flex;
     align-items: center;
     padding: 10px;
-    padding-left: 11px;
+    padding-left: 10px;
     border: none;
     border-radius: 10px;
     background-color: #1f1f1f;
@@ -150,7 +150,7 @@ td {
   input.searchInputs[type="text"] {
     background-color: #121212;
     color: #fff;
-    width: 96.7%;
+    width: 100%;
   }
   .button-container {
     padding-bottom: 10px; /* Adjust the value to set the desired padding */
@@ -173,6 +173,7 @@ td {
     justify-content: center;
     align-items: center;
     height: 15vh; /* Adjust the height as needed */
+    padding: 10px;
   }
 
   .glowing-box {
