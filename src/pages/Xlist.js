@@ -35,22 +35,6 @@ const XList = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //     if (window.unisat && window.unisat.getInscriptions) {
-  //         console.log('getInscriptions method is available');
-  //     } else {
-  //         console.error('getInscriptions method is not available');
-  //     }
-  // }, []);
-
-  // useEffect(() => {
-  //     if (window.unisat) {
-  //         console.log('UniSat Wallet is available');
-  //     } else {
-  //         console.error('UniSat Wallet is not available');
-  //     }
-  // }, []);
-
   const handleWalletChange = (wallet) => {
     setUnisatWallet(wallet);
     localStorage.setItem('wallet', wallet);
@@ -97,19 +81,19 @@ const XList = () => {
           // Check if the address already exists in the list
           const addressExists = prevList.some(item => item.address === foundItem.address);
           if (!addressExists) {
-            return [...prevList, foundItem];
+            return [...prevList, foundItem].filter(item => item && item.address !== null);
           } else {
             return prevList;
           }
         } else {
-          return [foundItem];
+          return [foundItem].filter(item => item && item.address !== null);
         }
       });
     } else {
       setIsAddressMatched(false);
   
       const newItem = {
-        address: unisatWallet || xverseWallet,
+        address: unisatWallet,
         og_alloc: 0,
         new_alloc: 0
       };
@@ -122,15 +106,16 @@ const XList = () => {
   
       setMatchedList(prevList => {
         if (prevList) {
-          // Check if the address already exists in the list
           const addressExists = prevList.some(item => item.address === newItem.address);
-          if (!addressExists) {
-            return [...prevList, newItem, addXverseWallet].filter(Boolean);
+          const xverseWalletExists = prevList.some(item => item.address === addXverseWallet?.address);
+          
+          if (!addressExists && !xverseWalletExists) {
+            return [...prevList, newItem, addXverseWallet].filter(item => item && item.address !== null);
           } else {
             return prevList;
           }
         } else {
-          return [newItem, addXverseWallet].filter(Boolean);
+          return [newItem, addXverseWallet].filter(item => item && item.address !== null);
         }
       });
     }
@@ -159,75 +144,79 @@ const XList = () => {
         </div>
       </div>
       <div ref={tableContainerRef} className="table-container">
-  {matchedList && (
+      {matchedList && Array.isArray(matchedList) && matchedList.length > 0 && ( // Check if matchedList exists, is an array, and is not empty
     <div className="glowing-container">
       <div className="glowing-box">
-        <table>
-          <tr>
-            <th>Your Address</th>
-            <th>$XMYR Alloc</th>
-            <th>100k Holdings</th>
-          </tr>
-          {Array.isArray(matchedList) ? (
-            // Render multiple items if matchedList is an array
-            matchedList.map(item => (
-              <tr key={item.address}>
-                <td
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    display: "inline-block",
-                    maxWidth: "100%",
-                    overflow: "visible",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  <a
-                    href={baseURL + item.address}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    {item.address.length > maxLength
-                      ? `${item.address.substr(0, maxLength / 2)}...${item.address.substr(-maxLength / 2)}`
-                      : item.address}
-                  </a>
-                </td>
-                <td>{item.new_alloc}</td>
-                <td>{item.og_alloc}</td>
+        {matchedList && (
+          <table>
+            <thead>
+              <tr>
+                <th>Your Address</th>
+                <th>$XMYR Alloc</th>
+                <th>100k Holdings</th>
               </tr>
-            ))
-          ) : (
-            // Render single item if matchedList is an object
-            <tr>
-              <td
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  display: "inline-block",
-                  maxWidth: "100%",
-                  overflow: "visible",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                <a
-                  href={baseURL + matchedList.address}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {matchedList.address.length > maxLength
-                    ? `${matchedList.address.substr(0, maxLength / 2)}...${matchedList.address.substr(-maxLength / 2)}`
-                    : matchedList.address}
-                </a>
-              </td>
-              <td>{matchedList.new_alloc}</td>
-              <td>{matchedList.og_alloc}</td>
-            </tr>
-          )}
-        </table>
+            </thead>
+            <tbody>
+              {Array.isArray(matchedList) ? (
+                matchedList.map((item) => (
+                  <tr key={item?.address}>
+                    <td
+                      style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                        display: "inline-block",
+                        maxWidth: "100%",
+                        overflow: "visible",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      <a
+                        href={baseURL + item?.address}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        {item?.address && item.address.length > maxLength
+                          ? `${item.address.substr(0, maxLength / 2)}...${item.address.substr(-maxLength / 2)}`
+                          : item?.address}
+                      </a>
+                    </td>
+                    <td>{item?.new_alloc}</td>
+                    <td>{item?.og_alloc}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                      display: "inline-block",
+                      maxWidth: "100%",
+                      overflow: "visible",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    <a
+                      href={baseURL + matchedList?.address}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      {matchedList?.address && matchedList.address.length > maxLength
+                        ? `${matchedList.address.substr(0, maxLength / 2)}...${matchedList.address.substr(-maxLength / 2)}`
+                        : matchedList?.address}
+                    </a>
+                  </td>
+                  <td>{matchedList?.new_alloc}</td>
+                  <td>{matchedList?.og_alloc}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   )}
