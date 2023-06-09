@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAddress } from 'sats-connect'
 
-
+// two props are for monitoring localstorage change
 const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [wallet, setWallet] = useState(localStorage.getItem('wallet') || null);
@@ -42,7 +42,6 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
       try {
         const accounts = await window.unisat.requestAccounts();
         if (accounts.length > 0) {
-          console.log(accounts[0]);
           setWallet(accounts[0]);
           localStorage.setItem('wallet', accounts[0]);
           onWalletChange(accounts[0])
@@ -65,7 +64,7 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
       setOrdinalsAddress(savedOrdinalsAddress);
       onOrdinalsAddressChange(savedOrdinalsAddress);
       // Show popup indicating address is already connected
-      openPopupMessage('Address is already connected');
+      openPopupMessage('Wallet is already connected');
       closePopup(); // Close the popup after showing the alert
     } else {
       const getAddressOptions = {
@@ -109,12 +108,6 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
     } 
   };
 
-  useEffect(() => {
-    if (ordinalsAddress) {
-      // Do something with the ordinalsAddress, e.g., send it to a parent component or an API
-      console.log('Ordinals Address:', ordinalsAddress);
-    }
-  }, [ordinalsAddress]);
 
   return (
 

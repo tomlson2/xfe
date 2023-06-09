@@ -168,6 +168,35 @@ td {
     white-space: nowrap; /* Prevent text wrapping */
   }
 
+  .glowing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh; /* Adjust the height as needed */
+  }
+
+  .glowing-box {
+    background-color: #1d1d1d;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 1px;
+    display: inline-block;
+    /* Add glowing effect */
+    animation: glowing 2s ease-in-out infinite;
+  }
+
+  @keyframes glowing {
+    0% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.2), 0 0 60px rgba(255, 255, 255, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1);
+    }
+  }
+
   @media (max-width: 650px) {
     .search {
       width: 90%; /* Increase width to 80% */
