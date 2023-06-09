@@ -129,7 +129,7 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
         </>
       )}
 
-      <button className="open-button" onClick={openPopup}>Connect Wallet</button>
+      <button className="open-button" onClick={openPopup} style={{ textAlign: "center" }}>Connect Wallet</button>
 
       {isOpen && (
         <>
@@ -138,7 +138,7 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
             <div className="popup-content">
               
               <button className="close-button" onClick={closePopup}>Close</button>
-              <p className="wallet-text">Choose <br/>Wallet</p>
+              <p className="wallet-text">Choose Wallet</p>
             </div>
             <div className="wallet-buttons">
               <button onClick={handleGetAddressUniSat}>UNISAT WALLET</button>
@@ -147,34 +147,6 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
           </div>
         </>
       )}
-
-        {ordinalsAddress && wallet && (
-          <div>
-            <p>
-              {ordinalsAddress.slice(-5) && <span>Xverse: ...{ordinalsAddress.slice(-5)}</span>}
-              {ordinalsAddress.slice(-5) && wallet.slice(-5) && <br />}
-              {wallet.slice(-5) && <span>Unisat: ...{wallet.slice(-5)}</span>}
-            </p>
-          </div>
-        )}
-
-        {!ordinalsAddress && !wallet && (
-          <div>
-            <p>No wallets connected.</p>
-          </div>
-        )}
-
-        {ordinalsAddress && !wallet && (
-          <div>
-            <p>Xverse: ...{ordinalsAddress.slice(-5)}</p>
-          </div>
-        )}
-
-        {!ordinalsAddress && wallet && (
-          <div>
-            <p>Unisat: ...{wallet.slice(-5)}</p>
-          </div>
-        )}
 
       <style jsx>{`
         .overlay {
@@ -233,12 +205,15 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
         }
 
         .wallet-buttons {
-          margin-top: 1px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: -10px;
         }
 
         .wallet-text {
           font-size: 2rem; /* You can adjust the font size to your preference */
-          margin-top: 20px; /* Adjust the margin top value to create spacing */
+          margin-top: 40px; /* Adjust the margin top value to create spacing */
           
           text-align: center
         }

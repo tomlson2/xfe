@@ -14,7 +14,7 @@ const XList = () => {
   const [data1, setData1] = useState(null);
   const [isAddressMatched, setIsAddressMatched] = useState(false);
   const [matchedList, setMatchedList] = useState([]);
-  const [maxLength, setMaxLength] = useState(20);
+  const [maxLength, setMaxLength] = useState(10);
   const tableContainerRef = useRef(null);
   const baseURL = "https://unisat.io/brc20?q=";
 
@@ -24,7 +24,7 @@ const XList = () => {
       const columnCount = 4; // Assuming 4 columns
       const padding = 20; // Adjust padding as needed
       const availableSpace = tableContainerWidth / columnCount - padding;
-      setMaxLength(Math.floor(availableSpace / 8)); // Adjust the division value as needed to achieve the desired length
+      setMaxLength(Math.floor(availableSpace / 10)); // Adjust the division value as needed to achieve the desired length
     };
 
     window.addEventListener("resize", calculateMaxLength);
@@ -130,8 +130,14 @@ const XList = () => {
           <Link to="/x-list" className="nav-link">X-List</Link>
           <Link to="/coming-soon" className="nav-link">X-Profile</Link>
         </div>
+        <div style={{ position: 'relative' }}>
+      <div style={{ position: 'absolute', top: -20, right: 0 }}>
         <PopupButton onWalletChange={handleWalletChange} onOrdinalsAddressChange={handleOrdinalsAddressChange} />
       </div>
+      {/* Other elements here */}
+    </div>
+      </div>
+      
       <h1>X-List</h1>
       <div className='search'>
         <div className='searchInputs'>

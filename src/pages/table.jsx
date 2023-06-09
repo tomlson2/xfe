@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const Table = ({ data }) => {
-  const desiredRows = 50;
+  const desiredRows = 20;
   const [sortColumn, setSortColumn] = useState("new_alloc"); // Update default sort column
   const [sortDirection, setSortDirection] = useState("desc"); // Update default sort direction
   const [rowsToShow, setRowsToShow] = useState(desiredRows);
@@ -65,7 +65,7 @@ const Table = ({ data }) => {
       const columnCount = 4; // Assuming 4 columns
       const padding = 20; // Adjust padding as needed
       const availableSpace = tableContainerWidth / columnCount - padding;
-      setMaxLength(Math.floor(availableSpace / 8)); // Adjust the division value as needed to achieve desired length
+      setMaxLength(Math.floor(availableSpace / 9)); // Adjust the division value as needed to achieve desired length
     };
 
     window.addEventListener("resize", calculateMaxLength);
