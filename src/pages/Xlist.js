@@ -71,8 +71,57 @@ const XList = () => {
       (typeof item.og_alloc === 'number' && !isNaN(query) && item.og_alloc >= parseFloat(query))
     );
   };
+// this puts every wallet into the matchedlist, main functionality was just to only have matched wallets into matchedlist
+//   useEffect(() => {
+//     const foundItem = data1 && data1.find(item => item.address === (unisatWallet || xverseWallet));
+//     if (foundItem) {
+//       setIsAddressMatched(true);
+//       setMatchedList(prevList => {
+//         if (prevList) {
+//           // Check if the address already exists in the list
+//           const addressExists = prevList.some(item => item.address === foundItem.address);
+//           if (!addressExists) {
+//             return [...prevList, foundItem].filter(item => item && item.address !== null);
+//           } else {
+//             return prevList;
+//           }
+//         } else {
+//           return [foundItem].filter(item => item && item.address !== null);
+//         }
+//       });
+//     } else {
+//       setIsAddressMatched(false);
+  
+//       const newItem = {
+//         address: unisatWallet,
+//         og_alloc: 0,
+//         new_alloc: 0
+//       };
+  
+//       const addXverseWallet = xverseWallet && {
+//         address: xverseWallet,
+//         og_alloc: 0,
+//         new_alloc: 0
+//       };
+  
+//       setMatchedList(prevList => {
+//         if (prevList) {
+//           const addressExists = prevList.some(item => item.address === newItem.address);
+//           const xverseWalletExists = prevList.some(item => item.address === addXverseWallet?.address);
+          
+//           if (!addressExists && !xverseWalletExists) {
+//             return [...prevList, newItem, addXverseWallet].filter(item => item && item.address !== null);
+//           } else {
+//             return prevList;
+//           }
+//         } else {
+//           return [newItem, addXverseWallet].filter(item => item && item.address !== null);
+//         }
+//       });
+//     }
+//   }, [data1, unisatWallet, xverseWallet]);
 
-  useEffect(() => {
+useEffect(() => {
     const foundItem = data1 && data1.find(item => item.address === (unisatWallet || xverseWallet));
     if (foundItem) {
       setIsAddressMatched(true);
@@ -92,34 +141,51 @@ const XList = () => {
     } else {
       setIsAddressMatched(false);
   
-      const newItem = {
-        address: unisatWallet,
-        og_alloc: 0,
-        new_alloc: 0
-      };
-  
-      const addXverseWallet = xverseWallet && {
-        address: xverseWallet,
-        og_alloc: 0,
-        new_alloc: 0
-      };
-  
       setMatchedList(prevList => {
         if (prevList) {
-          const addressExists = prevList.some(item => item.address === newItem.address);
-          const xverseWalletExists = prevList.some(item => item.address === addXverseWallet?.address);
-          
-          if (!addressExists && !xverseWalletExists) {
-            return [...prevList, newItem, addXverseWallet].filter(item => item && item.address !== null);
-          } else {
+          const filteredList = prevList.filter(item => {
+            const isUnisatMatched = item.address === unisatWallet && data1.some(dataItem => dataItem.address === unisatWallet);
+            const isXverseMatched = item.address === xverseWallet && data1.some(dataItem => dataItem.address === xverseWallet);
+            return isUnisatMatched || isXverseMatched;
+          });
+  
+          if (filteredList.length === prevList.length) {
+            // No new matching wallets found, return previous list
             return prevList;
           }
+  
+          const newItem = unisatWallet && {
+            address: unisatWallet,
+            og_alloc: 0,
+            new_alloc: 0
+          };
+  
+          const addXverseWallet = xverseWallet && {
+            address: xverseWallet,
+            og_alloc: 0,
+            new_alloc: 0
+          };
+  
+          return [...filteredList, newItem, addXverseWallet].filter(item => item && item.address !== null);
         } else {
+          const newItem = unisatWallet && {
+            address: unisatWallet,
+            og_alloc: 0,
+            new_alloc: 0
+          };
+  
+          const addXverseWallet = xverseWallet && {
+            address: xverseWallet,
+            og_alloc: 0,
+            new_alloc: 0
+          };
+  
           return [newItem, addXverseWallet].filter(item => item && item.address !== null);
         }
       });
     }
   }, [data1, unisatWallet, xverseWallet]);
+  
   
 
   return (
@@ -131,14 +197,24 @@ const XList = () => {
           <Link to="/coming-soon" className="nav-link">X-Profile</Link>
         </div>
         <div style={{ position: 'relative' }}>
-      <div style={{ position: 'absolute', top: -20, right: 0 }}>
-        <PopupButton onWalletChange={handleWalletChange} onOrdinalsAddressChange={handleOrdinalsAddressChange} />
-      </div>
-      {/* Other elements here */}
+        <div style={{ position: 'absolute', top: -20, right: 0 }}>
+  <PopupButton onWalletChange={handleWalletChange} onOrdinalsAddressChange={handleOrdinalsAddressChange} />
+  {/* shows the wallets if they exist and are not matched*/}
+  {unisatWallet !== null && !isAddressMatched && (
+  <div style={{ marginLeft: '-10px' }}>
+    <p>Unisat: ...{unisatWallet.substring(unisatWallet.length - 5)}</p>
+  </div>
+)}
+{xverseWallet !== null && !isAddressMatched && (
+  <div style={{ marginLeft: '-10px' }}>
+    <p>Xverse: ...{xverseWallet.substring(xverseWallet.length - 5)}</p>
+  </div>
+)}
+</div>
     </div>
       </div>
       
-      <h1>X-List</h1>
+      <h1 style={{ padding: '10px',paddingTop: '100px' }}>X-List</h1>
       <div className='search'>
         <div className='searchInputs'>
           <input
@@ -159,7 +235,7 @@ const XList = () => {
               <tr>
                 <th>Your Address</th>
                 <th>$XMYR Alloc</th>
-                <th>100k Holdings</th>
+                {/* <th>100k Holdings</th> */}
               </tr>
             </thead>
             <tbody>
@@ -189,7 +265,7 @@ const XList = () => {
                       </a>
                     </td>
                     <td>{item?.new_alloc}</td>
-                    <td>{item?.og_alloc}</td>
+                    {/* <td>{item?.og_alloc}</td> */}
                   </tr>
                 ))
               ) : (
@@ -217,7 +293,7 @@ const XList = () => {
                     </a>
                   </td>
                   <td>{matchedList?.new_alloc}</td>
-                  <td>{matchedList?.og_alloc}</td>
+                  {/* <td>{matchedList?.og_alloc}</td> */}
                 </tr>
               )}
             </tbody>
