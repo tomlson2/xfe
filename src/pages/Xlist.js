@@ -9,6 +9,7 @@ import PopupButton from '../ConnectWallets.jsx';
 
 const XList = () => {
   const fakeAddress = 'bc1paa95ws5wdd9uzvzerd9zgk07ys8c0jjt8fr207dwu0938pskrenqjgd0d7';
+  const fakeAddress1 = 'bc1pg83kkarm2z8l2wdkdntncezt65vz72zm9csqesqxdnv2zzmr5h4q77stqg';
   const [unisatWallet, setUnisatWallet] = useState(localStorage.getItem('wallet') || null);
   const [xverseWallet, setXverseWallet] = useState(localStorage.getItem('ordinalsAddress') || null);
   const [data1, setData1] = useState(null);
@@ -74,7 +75,7 @@ const XList = () => {
   
 // this puts every wallet into the matchedlist, main functionality was just to only have matched wallets into matchedlist
 //   useEffect(() => {
-//     const foundItem = data1 && data1.find(item => item.address === (unisatWallet || xverseWallet));
+//     const foundItem = data1 && data1.find(item => item.address === (fakeAddress1 || fakeAddress));
 //     if (foundItem) {
 //       setIsAddressMatched(true);
 //       setMatchedList(prevList => {
@@ -93,6 +94,7 @@ const XList = () => {
 //     } else {
 //       setIsAddressMatched(false);
   
+//       // making new list of users' wallets
 //       const newItem = {
 //         address: unisatWallet,
 //         og_alloc: 0,
@@ -124,32 +126,62 @@ const XList = () => {
 
 // this version simply deletes any list that has 0 og_alloc and new_alloc
 useEffect(() => {
-    const foundItem = data1 && data1.find(item => item.address === (fakeAddress || xverseWallet));
-    if (foundItem) {
+    const foundItem1 = data1 && data1.find(item => item.address === unisatWallet);
+    const foundItem2 = data1 && data1.find(item => item.address === xverseWallet);
+  
+    if (foundItem1 && foundItem2) {
       setIsAddressMatched(true);
+  
       setMatchedList(prevList => {
         if (prevList) {
-          // Check if the address already exists in the list
-          const addressExists = prevList.some(item => item.address === foundItem.address);
-          if (!addressExists) {
-            return [...prevList, foundItem].filter(item => item && item.address !== null);
+          // Check if the addresses already exist in the list
+          const address1Exists = prevList.some(item => item.address === foundItem1.address);
+          const address2Exists = prevList.some(item => item.address === foundItem2.address);
+  
+          if (!address1Exists && !address2Exists) {
+            return [
+              ...prevList,
+              foundItem1,
+              foundItem2,
+            ].filter(item => item && item.address !== null);
           } else {
             return prevList;
           }
         } else {
-          return [foundItem].filter(item => item && item.address !== null);
+          return [
+            foundItem1,
+            foundItem2,
+          ].filter(item => item && item.address !== null);
+        }
+      });
+    } else if (foundItem1 || foundItem2) {
+      setIsAddressMatched(true);
+  
+      const matchedItem = foundItem1 || foundItem2;
+  
+      setMatchedList(prevList => {
+        if (prevList) {
+          // Check if the address already exists in the list
+          const addressExists = prevList.some(item => item.address === matchedItem.address);
+          if (!addressExists) {
+            return [...prevList, matchedItem].filter(item => item && item.address !== null);
+          } else {
+            return prevList;
+          }
+        } else {
+          return [matchedItem].filter(item => item && item.address !== null);
         }
       });
     } else {
       setIsAddressMatched(false);
   
-      const newItem = {
+      const newItem1 = {
         address: unisatWallet,
         og_alloc: 0,
         new_alloc: 0
       };
   
-      const addXverseWallet = xverseWallet && {
+      const newItem2 = {
         address: xverseWallet,
         og_alloc: 0,
         new_alloc: 0
@@ -157,21 +189,18 @@ useEffect(() => {
   
       setMatchedList(prevList => {
         if (prevList) {
-          const addressExists = prevList.some(item => item.address === newItem.address);
-          const xverseWalletExists = prevList.some(item => item.address === addXverseWallet?.address);
-          
-          if (!addressExists && !xverseWalletExists) {
-            return [...prevList, newItem, addXverseWallet].filter(item => item && item.address !== null && (item.og_alloc !== 0 || item.new_alloc !== 0));
-          } else {
-            return prevList;
-          }
+          const updatedList = [...prevList, newItem1, newItem2].filter(item => item && item.address !== null);
+  
+          // Remove items with new_alloc = 0 and og_alloc = 0
+          const filteredList = updatedList.filter(item => item.new_alloc !== 0 || item.og_alloc !== 0);
+          return filteredList;
         } else {
-          return [newItem, addXverseWallet].filter(item => item && item.address !== null && (item.og_alloc !== 0 || item.new_alloc !== 0));
+          return [newItem1, newItem2].filter(item => item && item.address !== null);
         }
       });
     }
   }, [data1, unisatWallet, xverseWallet]);
-  
+
 
   return (
     <div>
@@ -211,7 +240,7 @@ useEffect(() => {
         </div>
       </div>
       <div ref={tableContainerRef} className="table-container">
-      {matchedList && Array.isArray(matchedList) && matchedList.length > 0 && ( // Check if matchedList exists, is an array, and is not empty
+  {matchedList && Array.isArray(matchedList) && matchedList.length > 0 && (
     <div className="glowing-container">
       <div className="glowing-box">
         {matchedList && (
@@ -219,68 +248,41 @@ useEffect(() => {
             <thead>
               <tr>
                 <th>Your Address</th>
-                <th className="green-glowing" style={{ textShadow: '2px 2px 4px rgba(42, 187, 155, 0.2)' }}>$XMYR Allocations</th>
+                <th className="green-glowing" style={{ textShadow: '2px 2px 4px rgba(42, 187, 155, 0.2)' }}>
+                  $XMYR Allocations
+                </th>
                 {/* <th>100k Holdings</th> */}
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(matchedList) ? (
-                matchedList.map((item) => (
-                  <tr key={item?.address}>
-                    <td
-                      style={{
-                        textDecoration: "none",
-                        color: "inherit",
-                        display: "inline-block",
-                        maxWidth: "100%",
-                        overflow: "visible",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      <a
-                        href={baseURL + item?.address}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ textDecoration: "none", color: "inherit" }}
-                      >
-                        {item?.address && item.address.length > maxLength
-                          ? `${item.address.substr(0, maxLength / 2)}...${item.address.substr(-maxLength / 2)}`
-                          : item?.address}
-                      </a>
-                    </td>
-                    <td className="green-glowing">{item?.new_alloc}</td>
-                    {/* <td>{item?.og_alloc}</td> */}
-                  </tr>
-                ))
-              ) : (
-                <tr>
+              {matchedList.map((item) => (
+                <tr key={item?.address}>
                   <td
                     style={{
-                      textDecoration: "none",
-                      color: "inherit",
-                      display: "inline-block",
-                      maxWidth: "100%",
-                      overflow: "visible",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      display: 'inline-block',
+                      maxWidth: '100%',
+                      overflow: 'visible',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
                     }}
                   >
                     <a
-                      href={baseURL + matchedList?.address}
+                      href={baseURL + item?.address}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ textDecoration: "none", color: "inherit" }}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
                     >
-                      {matchedList?.address && matchedList.address.length > maxLength
-                        ? `${matchedList.address.substr(0, maxLength / 2)}...${matchedList.address.substr(-maxLength / 2)}`
-                        : matchedList?.address}
+                      {item?.address && item.address.length > maxLength
+                        ? `${item.address.substr(0, maxLength / 2)}...${item.address.substr(-maxLength / 2)}`
+                        : item?.address}
                     </a>
                   </td>
-                  <td>{matchedList?.new_alloc}</td>
-                  {/* <td>{matchedList?.og_alloc}</td> */}
+                  <td className="green-glowing">{item?.new_alloc}</td>
+                  {/* <td>{item?.og_alloc}</td> */}
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         )}
@@ -288,6 +290,7 @@ useEffect(() => {
     </div>
   )}
 </div>
+
 <div className="table-container">
   <Table data={search(data1 || Xlistlist)} />
 </div>
