@@ -186,6 +186,10 @@ td {
     animation: glowing 2s ease-in-out infinite;
   }
 
+  .green-glowing {
+    color: rgba(42, 187, 155, 1);
+  }
+
   @keyframes glowing {
     0% {
       box-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1);

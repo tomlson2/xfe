@@ -24,7 +24,7 @@ const XList = () => {
       const columnCount = 4; // Assuming 4 columns
       const padding = 20; // Adjust padding as needed
       const availableSpace = tableContainerWidth / columnCount - padding;
-      setMaxLength(Math.floor(availableSpace / 10)); // Adjust the division value as needed to achieve the desired length
+      setMaxLength(Math.floor(availableSpace / 12)); // Adjust the division value as needed to achieve the desired length
     };
 
     window.addEventListener("resize", calculateMaxLength);
@@ -71,6 +71,7 @@ const XList = () => {
       (typeof item.og_alloc === 'number' && !isNaN(query) && item.og_alloc >= parseFloat(query))
     );
   };
+  
 // this puts every wallet into the matchedlist, main functionality was just to only have matched wallets into matchedlist
 //   useEffect(() => {
 //     const foundItem = data1 && data1.find(item => item.address === (unisatWallet || xverseWallet));
@@ -121,8 +122,9 @@ const XList = () => {
 //     }
 //   }, [data1, unisatWallet, xverseWallet]);
 
+// this version simply deletes any list that has 0 og_alloc and new_alloc
 useEffect(() => {
-    const foundItem = data1 && data1.find(item => item.address === (unisatWallet || xverseWallet));
+    const foundItem = data1 && data1.find(item => item.address === (fakeAddress || xverseWallet));
     if (foundItem) {
       setIsAddressMatched(true);
       setMatchedList(prevList => {
@@ -141,51 +143,34 @@ useEffect(() => {
     } else {
       setIsAddressMatched(false);
   
+      const newItem = {
+        address: unisatWallet,
+        og_alloc: 0,
+        new_alloc: 0
+      };
+  
+      const addXverseWallet = xverseWallet && {
+        address: xverseWallet,
+        og_alloc: 0,
+        new_alloc: 0
+      };
+  
       setMatchedList(prevList => {
         if (prevList) {
-          const filteredList = prevList.filter(item => {
-            const isUnisatMatched = item.address === unisatWallet && data1.some(dataItem => dataItem.address === unisatWallet);
-            const isXverseMatched = item.address === xverseWallet && data1.some(dataItem => dataItem.address === xverseWallet);
-            return isUnisatMatched || isXverseMatched;
-          });
-  
-          if (filteredList.length === prevList.length) {
-            // No new matching wallets found, return previous list
+          const addressExists = prevList.some(item => item.address === newItem.address);
+          const xverseWalletExists = prevList.some(item => item.address === addXverseWallet?.address);
+          
+          if (!addressExists && !xverseWalletExists) {
+            return [...prevList, newItem, addXverseWallet].filter(item => item && item.address !== null && (item.og_alloc !== 0 || item.new_alloc !== 0));
+          } else {
             return prevList;
           }
-  
-          const newItem = unisatWallet && {
-            address: unisatWallet,
-            og_alloc: 0,
-            new_alloc: 0
-          };
-  
-          const addXverseWallet = xverseWallet && {
-            address: xverseWallet,
-            og_alloc: 0,
-            new_alloc: 0
-          };
-  
-          return [...filteredList, newItem, addXverseWallet].filter(item => item && item.address !== null);
         } else {
-          const newItem = unisatWallet && {
-            address: unisatWallet,
-            og_alloc: 0,
-            new_alloc: 0
-          };
-  
-          const addXverseWallet = xverseWallet && {
-            address: xverseWallet,
-            og_alloc: 0,
-            new_alloc: 0
-          };
-  
-          return [newItem, addXverseWallet].filter(item => item && item.address !== null);
+          return [newItem, addXverseWallet].filter(item => item && item.address !== null && (item.og_alloc !== 0 || item.new_alloc !== 0));
         }
       });
     }
   }, [data1, unisatWallet, xverseWallet]);
-  
   
 
   return (
@@ -199,13 +184,13 @@ useEffect(() => {
         <div style={{ position: 'relative' }}>
         <div style={{ position: 'absolute', top: -20, right: 0 }}>
   <PopupButton onWalletChange={handleWalletChange} onOrdinalsAddressChange={handleOrdinalsAddressChange} />
-  {/* shows the wallets if they exist and are not matched*/}
-  {unisatWallet !== null && !isAddressMatched && (
+  {/* shows the wallets if they exist*/}
+  {unisatWallet !== null && (
   <div style={{ marginLeft: '-10px' }}>
-    <p>Unisat: ...{unisatWallet.substring(unisatWallet.length - 5)}</p>
+    <p style={{ marginBottom: -12 }}>Unisat: ...{unisatWallet.substring(unisatWallet.length - 5)}</p>
   </div>
 )}
-{xverseWallet !== null && !isAddressMatched && (
+{xverseWallet !== null && (
   <div style={{ marginLeft: '-10px' }}>
     <p>Xverse: ...{xverseWallet.substring(xverseWallet.length - 5)}</p>
   </div>
@@ -234,7 +219,7 @@ useEffect(() => {
             <thead>
               <tr>
                 <th>Your Address</th>
-                <th>$XMYR Alloc</th>
+                <th className="green-glowing" style={{ textShadow: '2px 2px 4px rgba(42, 187, 155, 0.2)' }}>$XMYR Allocations</th>
                 {/* <th>100k Holdings</th> */}
               </tr>
             </thead>
@@ -264,7 +249,7 @@ useEffect(() => {
                           : item?.address}
                       </a>
                     </td>
-                    <td>{item?.new_alloc}</td>
+                    <td className="green-glowing">{item?.new_alloc}</td>
                     {/* <td>{item?.og_alloc}</td> */}
                   </tr>
                 ))
