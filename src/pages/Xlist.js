@@ -75,7 +75,7 @@ const XList = () => {
   
 // this puts every wallet into the matchedlist, main functionality was just to only have matched wallets into matchedlist
 //   useEffect(() => {
-//     const foundItem = data1 && data1.find(item => item.address === (fakeAddress1 || fakeAddress));
+//     const foundItem = data1 && data1.find(item => item.address === (unisatWallet || xverseWallet));
 //     if (foundItem) {
 //       setIsAddressMatched(true);
 //       setMatchedList(prevList => {
@@ -227,7 +227,6 @@ useEffect(() => {
 </div>
     </div>
       </div>
-      
       <h1 style={{ padding: '10px',paddingTop: '100px' }}>X-List</h1>
       <div className='search'>
         <div className='searchInputs'>

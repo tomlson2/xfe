@@ -35,15 +35,15 @@ button {
     text-align: center; /* Center the text */
     text-transform: none;
     letter-spacing: 0.2px; /* Add spacing between letters */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
     transition: transform 0.1s, box-shadow 0.1s; /* Smooth transitions */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow */
   }
 
 button:hover {
-    transform: scale(1.03); /* Increase button size on hover */
+    /* transform: scale(1.03); Increase button size on hover */
     background-color: #ffae34;
-    box-shadow: 0 0 2px rgba(247, 147, 26, 0.8); /* Glow effect on hover */
+    box-shadow: 0 0 8px rgba(247, 147, 26, 0.8); /* Glow effect on hover */
 }
 
 button:focus {
@@ -69,23 +69,7 @@ td {
     white-space: nowrap;
 }
 
-@media screen and (max-width: 650px) {
-    .table-container {
-        overflow-x: auto;
-    }
-    table {
-        width: 100%;
-    }
-    tr {
-        display: table-row;
-        border-bottom: hidden;
-    }
-    td {
-        display: table-cell;
-        max-width: none;
-        width: auto;
-    }
-}
+
 
 .banner {
     display: flex;
@@ -168,12 +152,45 @@ td {
     white-space: nowrap; /* Prevent text wrapping */
   }
 
+  @media (max-width: 650px) {
+    .search {
+      width: 90%; /* Increase width to 80% */
+    }
+  
+    .searchInputs {
+      width: 90%; /* Increase width to 90% */
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    
+    /* this should be allowing horizontal scroll on samll screens 
+       but is messing with the glow effect.. 
+
+     .table-container {
+        overflow-x: auto;
+    } */
+    table {
+        width: 100%; 
+    }
+    tr {
+        display: table-row;
+        border-bottom: hidden;
+    }
+    td {
+        display: table-cell;
+        max-width: none;
+        width: auto;
+    }
+}
+
   .glowing-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 15vh; /* Adjust the height as needed */
-    padding: 15px;
+    padding: 35px;
+    white-space: nowrap; /* Prevent box from wrapping to next line */
   }
 
   .glowing-box {
@@ -202,12 +219,3 @@ td {
     }
   }
 
-  @media (max-width: 650px) {
-    .search {
-      width: 90%; /* Increase width to 80% */
-    }
-  
-    .searchInputs {
-      width: 90%; /* Increase width to 90% */
-    }
-  }

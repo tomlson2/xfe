@@ -180,7 +180,7 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5);
+          text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.0);
         }
 
         .open-button {
@@ -198,7 +198,7 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
           font-size: 14px;
           padding: 10px 8px !important;
           width: 60px; /* Adjust the width to make the button smaller */
-          height: 34px;
+          height: 38px;
           position: absolute;
           top: -8px; /* Adjust the top position as per your preference */
           right: -8px; /* Adjust the right position as per your preference */
@@ -239,7 +239,7 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5);
+          text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.0);
           flex-wrap: wrap;
         }
         
@@ -247,7 +247,7 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
           font-size: 14px;
           padding: 10px 8px !important;
           width: 60px;
-          height: 34px;
+          height: 38px;
           order: 1;
           margin-left: auto;
           white-space: nowrap;
