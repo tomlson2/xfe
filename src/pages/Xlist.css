@@ -33,17 +33,17 @@ button {
     font-family: inherit;
     font-size: 18px;
     text-align: center; /* Center the text */
-    text-transform: lowercase;
+    text-transform: none;
     letter-spacing: 0.2px; /* Add spacing between letters */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
     transition: transform 0.1s, box-shadow 0.1s; /* Smooth transitions */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow */
   }
 
 button:hover {
-    transform: scale(1.03); /* Increase button size on hover */
+    /* transform: scale(1.03); Increase button size on hover */
     background-color: #ffae34;
-    box-shadow: 0 0 2px rgba(247, 147, 26, 0.8); /* Glow effect on hover */
+    box-shadow: 0 0 8px rgba(247, 147, 26, 0.8); /* Glow effect on hover */
 }
 
 button:focus {
@@ -51,7 +51,7 @@ button:focus {
   }
 
 table {
-    width: 75%;
+    width: 70%;
     margin: 0 auto;
     border-collapse: collapse;
     text-align: left;
@@ -74,35 +74,13 @@ th:hover {
   }
 
 td {
-    max-width: 275px; /* if changing this value make sure the overflow isnt messing stuff up */
+    max-width: 275px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-@media screen and (max-width: 650px) {
-    .table-container {
-        overflow-x: auto;
-    }
-    table {
-        width: 97.5%;
-    }
-    tr {
-        display: table-row;
-        border-bottom: hidden;
-    }
-    td {
-        display: table-cell;
-        max-width: none;
-        width: auto;
-    }
-    th {
-        display: table-cell;
-        white-space: pre-wrap;
-        word-break: break-word;
-        text-align: left;
-      }
-}
+
 
 .banner {
     display: flex;
@@ -142,9 +120,9 @@ td {
     display: flex;
     justify-content: center;
     align-items: center !important;
-    width: 50%;
+    width: 60%;
     margin: 0 auto;
-    padding-bottom: 33.5px; 
+    padding-bottom: 25px; 
     
   }
 
@@ -153,7 +131,7 @@ td {
     display: flex;
     align-items: center;
     padding: 10px;
-    padding-left: 11px;
+    padding-left: 10px;
     border: none;
     border-radius: 10px;
     background-color: #1f1f1f;
@@ -167,7 +145,7 @@ td {
   input.searchInputs[type="text"] {
     background-color: #121212;
     color: #fff;
-    width: 96.7%;
+    width: 100%;
   }
   .button-container {
     padding-bottom: 10px; /* Adjust the value to set the desired padding */
@@ -185,13 +163,70 @@ td {
     white-space: nowrap; /* Prevent text wrapping */
   }
 
-  /* changes search bar to cover most of the screen if screen width is <= 650px */
   @media (max-width: 650px) {
     .search {
-      width: 85%; /* Increase width to 80% */
+      width: 90%; /* Increase width to 80% */
     }
   
     .searchInputs {
-      width: 85%; /* Increase width to 90% */
+      width: 90%; /* Increase width to 90% */
     }
   }
+
+  @media screen and (max-width: 650px) {
+    
+    /* this should be allowing horizontal scroll on samll screens 
+       but is messing with the glow effect.. 
+
+     .table-container {
+        overflow-x: auto;
+    } */
+    table {
+        width: 100%; 
+    }
+    tr {
+        display: table-row;
+        border-bottom: hidden;
+    }
+    td {
+        display: table-cell;
+        max-width: none;
+        width: auto;
+    }
+}
+
+  .glowing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh; /* Adjust the height as needed */
+    padding: 35px;
+    white-space: nowrap; /* Prevent box from wrapping to next line */
+  }
+
+  .glowing-box {
+    background-color: #1d1d1d;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 1px;
+    display: inline-block;
+    /* Add glowing effect */
+    animation: glowing 2s ease-in-out infinite;
+  }
+
+  .green-glowing {
+    color: rgba(42, 187, 155, 1);
+  }
+
+  @keyframes glowing {
+    0% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.2), 0 0 60px rgba(255, 255, 255, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1);
+    }
+  }
+
