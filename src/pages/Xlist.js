@@ -249,7 +249,7 @@ useEffect(() => {
 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
   <div style={{ flex: 1, marginTop: '-10px' }}>
     <div style={{ position: 'relative' }}>
-      <p style={{ textAlign: 'center', marginBottom: '3px' }}>Current $XMYR Allocations</p>
+      <p style={{ textAlign: 'center', marginBottom: '3px' }}>Current $XMYR Allocation</p>
       <BarChart data={BarData} totalValue={totalValue} />
     </div>
   </div>
@@ -291,7 +291,7 @@ useEffect(() => {
               <tr>
                 <th>Your Address</th>
                 <th className="green-glowing" style={{ textShadow: '2px 2px 4px rgba(42, 187, 155, 0.2)' }}>
-                  $XMYR Allocations
+                  $XMYR Allocation
                 </th>
                 {/* <th>100k Holdings</th> */}
               </tr>
