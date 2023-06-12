@@ -8,10 +8,10 @@ const BarChart = ({ data, totalValue }) => {
     justifyContent: 'center',
     width: '45%',
     height: '30px',
-    backgroundColor: '#f2f2f2',
-    borderRadius: '5px',
+    backgroundColor: '#121212',
+    borderRadius: '10px',
     overflow: 'hidden',
-    border: '5px solid #302f2f',
+    border: '6px solid #302f2f',
     margin: '0 auto',
     boxShadow: '0 0 4px rgba(112, 112, 112, 0.7)',
     minWidth: '300px', // Example minimum width value
@@ -20,6 +20,7 @@ const BarChart = ({ data, totalValue }) => {
  
   const barStyle = {
     height: '100%',
+    borderRadius: '0px',
     transition: 'width 0.3s',
   };
  
@@ -69,14 +70,14 @@ const BarChart = ({ data, totalValue }) => {
     position: 'fixed',
     left: tooltipPosition.left,
     top: tooltipPosition.top,
-    transform: 'translate(-50%, -100%)',
+    transform: 'translate(-50%, 100%)',
     display: tooltipPosition.visible ? 'block' : 'none',
  
     color: '#F5F5F5',
     padding: '5px',
     pointerEvents: 'none',
     fontWeight: 'bold', // Set the text to bold
-    textShadow: '2px 2px 4px #000000', // Add a slightly darker text shadow
+    textShadow: '2px 2px 1px #000000', // Add a slightly darker text shadow
   };
  
   return (

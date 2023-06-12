@@ -253,7 +253,7 @@ useEffect(() => {
       <BarChart data={BarData} totalValue={totalValue} />
     </div>
   </div>
-  <div style={{ position: 'absolute', top: -4, right: 10 }}>
+  <div style={{ position: 'absolute', top: -8, right: 10 }}>
     <PopupButton onWalletChange={handleWalletChange} onOrdinalsAddressChange={handleOrdinalsAddressChange} />
     {/* shows the wallets if they exist*/}
     {unisatWallet !== null && (
