@@ -102,7 +102,7 @@ const Table = ({ data }) => {
             data-header="10k"
             className={isSmallScreen ? "small-header" : ""}
           >
-            {isSmallScreen ? "$XMYR Alloc" : "$XMYR Allocations"}
+            {isSmallScreen ? "$XMYR Alloc" : "$XMYR Allocation"}
           </th>
           {/* <th
             onClick={() => handleSort("burn")}
