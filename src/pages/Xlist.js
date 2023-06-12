@@ -5,19 +5,38 @@ import './Xlist.css';
 import Table from './table';
 import { Xlistlist } from '../Xlistlist';
 import PopupButton from '../ConnectWallets.jsx';
+import BarChart from '../components/BarChart.jsx';
 
 
 const XList = () => {
-  const fakeAddress = 'bc1paa95ws5wdd9uzvzerd9zgk07ys8c0jjt8fr207dwu0938pskrenqjgd0d7';
-  const fakeAddress1 = 'bc1pg83kkarm2z8l2wdkdntncezt65vz72zm9csqesqxdnv2zzmr5h4q77stqg';
+//   const fakeAddress = 'bc1paa95ws5wdd9uzvzerd9zgk07ys8c0jjt8fr207dwu0938pskrenqjgd0d7';
+//   const fakeAddress1 = 'bc1pg83kkarm2z8l2wdkdntncezt65vz72zm9csqesqxdnv2zzmr5h4q77stqg';
   const [unisatWallet, setUnisatWallet] = useState(localStorage.getItem('wallet') || null);
   const [xverseWallet, setXverseWallet] = useState(localStorage.getItem('ordinalsAddress') || null);
   const [data1, setData1] = useState(null);
+  const [data2, setData2] = useState(null);
   const [isAddressMatched, setIsAddressMatched] = useState(false);
   const [matchedList, setMatchedList] = useState([]);
   const [maxLength, setMaxLength] = useState(10);
   const tableContainerRef = useRef(null);
   const baseURL = "https://unisat.io/brc20?q=";
+
+  const BarData = [
+    { label: '100k Holders', value: 5000, color: '#f7a139' },
+    { label: 'Give Away Winners', value: data2, color: '#B87333' },
+    { label: 'Unallocated', value: 1000, color: '#121212' },
+  ];
+  
+  const totalValue = 10000; // Specify the total value here
+  
+  const calculateRemainingValue = () => {
+    const usedValue = BarData.slice(0, 2).reduce((sum, item) => sum + item.value, 0);
+    const unallocatedValue = totalValue - usedValue;
+    BarData[2].value = unallocatedValue;
+    return unallocatedValue;
+  };
+
+  calculateRemainingValue();
 
   useEffect(() => {
     const calculateMaxLength = () => {
@@ -58,6 +77,22 @@ const XList = () => {
     };
 
     fetchData();
+  }, []);
+
+  // gets the give away winners amount from endpoint saves to data2
+  useEffect(() => {
+    const fetchBarchartData = async () => {
+      try {
+        const response = await fetch('https://xonbtcapi.azurewebsites.net/wallets/total_allocation_ga_winners');
+        const data = await response.json();
+        setData2(data);
+        console.log(data)
+      } catch (error) {
+        console.error('Error fetching other data:', error);
+      }
+    };
+  
+    fetchBarchartData();
   }, []);
 
   const [query, setQuery] = useState("");
@@ -204,29 +239,37 @@ useEffect(() => {
 
   return (
     <div>
-      <div className="banner">
-        <div className="links-container">
-          <Link to="/">X</Link>
-          <Link to="/x-list" className="nav-link">X-List</Link>
-          <Link to="/coming-soon" className="nav-link">X-Profile</Link>
-        </div>
-        <div style={{ position: 'relative' }}>
-        <div style={{ position: 'absolute', top: -20, right: 0 }}>
-  <PopupButton onWalletChange={handleWalletChange} onOrdinalsAddressChange={handleOrdinalsAddressChange} />
-  {/* shows the wallets if they exist*/}
-  {unisatWallet !== null && (
-  <div style={{ marginLeft: '-10px' }}>
-    <p style={{ marginBottom: -12 }}>Unisat: ...{unisatWallet.substring(unisatWallet.length - 5)}</p>
-  </div>
-)}
-{xverseWallet !== null && (
-  <div style={{ marginLeft: '-10px' }}>
-    <p>Xverse: ...{xverseWallet.substring(xverseWallet.length - 5)}</p>
-  </div>
-)}
-</div>
-    </div>
+        <div className='banner'>
+      <div className="links-container">
+        <Link to="/">X</Link>
+        <Link to="/x-list" className="nav-link">X-List</Link>
+        <Link to="/coming-soon" className="nav-link">X-Profile</Link>
       </div>
+</div>
+<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+  <div style={{ flex: 1, marginTop: '-10px' }}>
+    <div style={{ position: 'relative' }}>
+      <p style={{ textAlign: 'center', marginBottom: '3px' }}>Current $XMYR Allocations</p>
+      <BarChart data={BarData} totalValue={totalValue} />
+    </div>
+  </div>
+  <div style={{ position: 'absolute', top: -4, right: 10 }}>
+    <PopupButton onWalletChange={handleWalletChange} onOrdinalsAddressChange={handleOrdinalsAddressChange} />
+    {/* shows the wallets if they exist*/}
+    {unisatWallet !== null && (
+      <div style={{ marginLeft: '-12px' }}>
+        <p style={{ marginBottom: -14, marginTop: -10 }}>Unisat: ...{unisatWallet.substring(unisatWallet.length - 5)}</p>
+      </div>
+    )}
+    {xverseWallet !== null && (
+      <div style={{ marginLeft: '-12px' }}>
+        <p>Xverse: ...{xverseWallet.substring(xverseWallet.length - 5)}</p>
+      </div>
+    )}
+  </div>
+</div>
+
+      
       <h1 style={{ padding: '10px',paddingTop: '100px' }}>X-List</h1>
       <div className='search'>
         <div className='searchInputs'>

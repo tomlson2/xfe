@@ -35,7 +35,7 @@ button {
     text-align: center; /* Center the text */
     text-transform: none;
     letter-spacing: 0.2px; /* Add spacing between letters */
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
     transition: transform 0.1s, box-shadow 0.1s; /* Smooth transitions */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow */
   }
@@ -57,21 +57,10 @@ table {
     text-align: left;
 }
 
-td {
-    
+th, td {
     padding: 20px;
     border-bottom: none; /* Remove the border between table cells */
 }
-
-th {
-    cursor: pointer;
-    padding: 20px;
-    border-bottom: none; /* Remove the border between table cells */
-}
-
-th:hover {
-    color: #ffae34;
-  }
 
 td {
     max-width: 275px;
