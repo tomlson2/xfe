@@ -196,12 +196,12 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
 
         .close-button {
           font-size: 14px;
-          padding: 10px 8px !important;
+          padding: 12px 12px !important;
           width: 60px; /* Adjust the width to make the button smaller */
           height: 38px;
           position: absolute;
           top: -8px; /* Adjust the top position as per your preference */
-          right: -8px; /* Adjust the right position as per your preference */
+          right: 10px; /* Adjust the right position as per your preference */
         }
 
         .wallet-buttons {
