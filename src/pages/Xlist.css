@@ -1,221 +1,268 @@
 @font-face {
-    font-family: 'pixel'; /* you can name this anything you want */
-    src: url('../../public/font.ttf'); /* update this path to your font file */
+  font-family: 'pixel';
+  /* you can name this anything you want */
+  src: url('../../public/font.ttf');
+  /* update this path to your font file */
 }
 
 body {
-    background-color: #121212; /* Dark background */
-    color: #f7931a; /* Bitcoin orange */
-    font-family: 'pixel', sans-serif; /* use the name you specified above */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100vh;
+  background-color: #121212;
+  /* Dark background */
+  color: #f7931a;
+  /* Bitcoin orange */
+  font-family: 'pixel', sans-serif;
+  /* use the name you specified above */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
 }
 
 h1 {
-    font-size: 50px;
-    text-align: center;
-    margin-top: 20px;
+  font-size: 50px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 button {
-    display: block;
-    width: 150px;
-    height: 40px;
-    margin: 20px auto;
-    background: linear-gradient(45deg, #f7931a, #ffbb58); /* Orange gradient */
-    color: #121212; /* White color for text */
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 18px;
-    text-align: center; /* Center the text */
-    text-transform: none;
-    letter-spacing: 0.2px; /* Add spacing between letters */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
-    transition: transform 0.1s, box-shadow 0.1s; /* Smooth transitions */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow */
-  }
+  display: block;
+  background: #1f1f1f;
+  /* Orange gradient */
+  color: #f7931a;
+  /* White color for text */
+  border-color: #f7931a;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 5px;
+  font-size: 18px;
+  text-align: center;
+  /* Center the text */
+  letter-spacing: 0.2px;
+  /* Add spacing between letters */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Add shadow */
+  transition: transform 0.1s, box-shadow 0.1s;
+  /* Smooth transitions */
+}
 
 button:hover {
-    /* transform: scale(1.03); Increase button size on hover */
-    background-color: #ffae34;
-    box-shadow: 0 0 8px rgba(247, 147, 26, 0.8); /* Glow effect on hover */
+  transform: scale(1.03);
+  /* Increase button size on hover */
+  background-color: #ffae34;
+  color: black;
+  box-shadow: 0 0 2px rgba(247, 147, 26, 0.8);
+  /* Glow effect on hover */
 }
 
 button:focus {
-    outline: none; /* Remove outline when button is focused */
-  }
-
-table {
-    width: 70%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    text-align: left;
+  outline: none;
+  /* Remove outline when button is focused */
 }
 
-th, td {
-    padding: 20px;
-    border-bottom: none; /* Remove the border between table cells */
+table {
+  border: 6px solid #302f2f;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 15px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+tr td:not(:first-child) {
+  text-align: center;
+}
+
+th {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 20px;
+  border-bottom: none;
+  /* Remove the border between table cells */
+  text-align: center;
+  border-style : hidden;
+}
+
+th:hover {
+  color: #ffae34;
+}
+
+tr {
+  font-size: 15px;
+  text-align: left;
 }
 
 td {
-    max-width: 275px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  padding: 20px;
+  max-width: 275px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
+h1 {
+  font-size: 70px;
+}
 
+@media screen and (max-width: 650px) {
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 97.5%;
+  }
+
+  .progress-search-container {
+    width: 97.5%
+  }
+
+  tr {
+    display: table-row;
+    border-bottom: hidden;
+  }
+
+  td {
+    display: table-cell;
+    max-width: none;
+    width: auto;
+  }
+
+  th {
+    display: table-cell;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
 
 .banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
 
-.banner .address, .banner button {
-    margin-right: 20px;
-    text-align: right;
+.banner .address,
+.banner button {
+  margin-right: 20px;
+  text-align: right;
 }
 
 .links-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .links-container a {
-    color: #f7931a; /* Bitcoin orange */
-    text-decoration: none;
+  color: #f7931a;
+  /* Bitcoin orange */
+  text-decoration: none;
 }
 
 .links-container a.nav-link {
-    font-size: 1em;
-    text-decoration: underline;
+  font-size: 1em;
+  text-decoration: underline;
 }
 
 .banner a {
-    color: #f7931a; /* Bitcoin orange */
-    text-decoration: none;
-    font-size: 2em;
+  color: #f7931a;
+  /* Bitcoin orange */
+  text-decoration: none;
+  font-size: 2em;
 }
 
-.search {
-    display: flex;
-    justify-content: center;
-    align-items: center !important;
-    width: 60%;
-    margin: 0 auto;
-    padding-bottom: 25px; 
-    
-  }
+.groupParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-search-container {
+  border: 6px solid #302f2f;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #302f2f;
+  width: 74%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.search-container {
+  min-width: 30%;
+}
+
+.barChart-container {
+  min-width: 70%;
+  /* Adjust this to set the width of the bar chart */
+}
 
 .searchInputs {
-    width: 80%;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    padding-left: 10px;
-    border: none;
-    border-radius: 10px;
-    background-color: #1f1f1f;
-    color: #fff;
-    outline: none;
-    box-shadow: 0 0 4px rgba(112, 112, 112, 0.7);
-    font-family: inherit;
-    font-size: 16px;
-  }
-
-  input.searchInputs[type="text"] {
-    background-color: #121212;
-    color: #fff;
-    width: 100%;
-  }
-  .button-container {
-    padding-bottom: 10px; /* Adjust the value to set the desired padding */
+  display: flex;
+  align-items: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 7px;
+  padding-right: -5px;
+  border: none;
+  border-radius: 10px;
+  background-color: #1f1f1f;
+  color: #fff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(112, 112, 112, 0.7);
+  font-family: inherit;
+  font-size: 16px;
+  width: 100%;
+  /* This allows the search input to take full width of its parent container */
 }
 
-  .even {
-    background-color: #1d1d1d; /* Even rows background color */
-  }
-  
-  .odd {
-    background-color: #121212; /* Odd rows background color */
-  }
 
-  .small-header {
-    white-space: nowrap; /* Prevent text wrapping */
-  }
-
-  @media (max-width: 650px) {
-    .search {
-      width: 90%; /* Increase width to 80% */
-    }
-  
-    .searchInputs {
-      width: 90%; /* Increase width to 90% */
-    }
-  }
-
-  @media screen and (max-width: 650px) {
-    
-    /* this should be allowing horizontal scroll on samll screens 
-       but is messing with the glow effect.. 
-
-     .table-container {
-        overflow-x: auto;
-    } */
-    table {
-        width: 100%; 
-    }
-    tr {
-        display: table-row;
-        border-bottom: hidden;
-    }
-    td {
-        display: table-cell;
-        max-width: none;
-        width: auto;
-    }
+input.searchInputs[type="text"] {
+  background-color: #121212;
+  color: #fff;
+  width: 97%;
 }
 
-  .glowing-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 15vh; /* Adjust the height as needed */
-    padding: 35px;
-    white-space: nowrap; /* Prevent box from wrapping to next line */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  margin-bottom: 60px;
+  padding-bottom: 10px;
+}
+
+.button-container button {
+  margin-right: 10px;
+  /* Adjust the value to set the desired space between the buttons */
+}
+
+.even {
+  background-color: #1d1d1d;
+  /* Even rows background color */
+}
+
+.odd {
+  background-color: #121212;
+  /* Odd rows background color */
+}
+
+.small-header {
+  white-space: nowrap;
+  /* Prevent text wrapping */
+}
+
+/* changes search bar to cover most of the screen if screen width is <= 650px */
+@media (max-width: 650px) {
+  .search {
+    width: 85%;
+    /* Increase width to 80% */
   }
 
-  .glowing-box {
-    background-color: #1d1d1d;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    padding: 1px;
-    display: inline-block;
-    /* Add glowing effect */
-    animation: glowing 2s ease-in-out infinite;
+  .searchInputs {
+    width: 85%;
+    /* Increase width to 90% */
   }
-
-  .green-glowing {
-    color: rgba(42, 187, 155, 1);
-  }
-
-  @keyframes glowing {
-    0% {
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1);
-    }
-    50% {
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.2), 0 0 60px rgba(255, 255, 255, 0.2);
-    }
-    100% {
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1);
-    }
-  }
-
+}

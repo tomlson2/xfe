@@ -18,6 +18,19 @@
     font-family: 'pixel', sans-serif;
 }
 
+.circle {
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%; 
+    overflow: hidden; 
+    position: relative;
+}
+
+.circle img {
+    width: 100%; 
+    height: auto; 
+}
+
 .App-header {
     margin-left: 10px;
     margin-right: 10px;
@@ -45,6 +58,7 @@
 }
 
 .xWrapper {
+    max-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -60,23 +74,29 @@
 }
 
 .yellowSubtext {
-    font-size: 2rem;
+    font-size: 30px;
     color: #f7931a;
     /* Bitcoin orange */
     margin-bottom: 20px;
 }
 
 .linksWrapper {
+    font-size: 2.5rem;
     display: flex;
     justify-content: space-around;
     width: 100%;
     max-width: 800px;
     margin-top: 20px;
+    color: white;
+}
+
+h5{
+    font-size: 300px;
+    margin: 0;
 }
 
 .link {
-    font-size: 1.5rem;
-    color: white;
+    color: inherit;
     text-decoration: underline;
     cursor: pointer;
 }

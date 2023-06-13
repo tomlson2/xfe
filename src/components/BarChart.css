@@ -1,0 +1,26 @@
+.barContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 98%;
+    height: 30px;
+    background-color: #121212;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.barStyle {
+    height: 100%;
+    border-radius: 0px;
+    transition: width 0.3s;
+}
+
+.tooltip {
+    position: fixed;
+    color: #F5F5F5;
+    padding: 5px;
+    pointer-events: none;
+    font-weight: bold;
+    text-shadow: 2px 2px 1px #000000;
+}

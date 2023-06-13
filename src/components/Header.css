@@ -1,0 +1,23 @@
+/* Header.css */
+
+.header {
+    padding: 2px;  /* Padding so contents aren't pressed against the border */
+    margin-bottom: 25px;
+}
+
+.links-container {
+    font-size: 18px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;  /* Centers items vertically */
+}
+
+.nav-link {
+    /* Add styles for your navigation links */
+}
+
+.vertical-line {
+    border-left: 1px solid orange;  /* Adjust color to orange */
+    height: 25px;  
+    margin: 0 10px; 
+}

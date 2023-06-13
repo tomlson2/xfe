@@ -88,7 +88,7 @@ const Table = ({ data }) => {
             data-header="Addr"
             className={isSmallScreen ? "small-header" : ""}
           >
-            {isSmallScreen ? "Address" : "Address"}
+            {isSmallScreen ? "Address" : "Wallet Address"}
           </th>
           <th
             onClick={() => handleSort("og_alloc")}

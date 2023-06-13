@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAddress } from 'sats-connect'
+import './ConnectWallet.css';
 
 // two props are for monitoring localstorage change
 const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
@@ -28,10 +29,10 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
       setOrdinalsAddress(storedAddress || null); // Set to null if storedAddress is falsy);
     }
   }, []);
-  
+
   const handleGetAddressUniSat = async () => {
     const savedWallet = localStorage.getItem('wallet');
-  
+
     if (savedWallet) {
       setWallet(savedWallet);
       onWalletChange(savedWallet)
@@ -56,10 +57,10 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
       openPopupMessage('UniSat Wallet is not installed.');
     }
   };
-  
+
   const handleGetAddressXverse = async () => {
     const savedOrdinalsAddress = localStorage.getItem('ordinalsAddress');
-  
+
     if (savedOrdinalsAddress) {
       setOrdinalsAddress(savedOrdinalsAddress);
       onOrdinalsAddressChange(savedOrdinalsAddress);
@@ -77,9 +78,9 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
         },
         onFinish: (response) => {
           console.log(response);
-  
+
           const address = response.addresses.find((addr) => addr.purpose === 'ordinals');
-  
+
           if (address && address.address) {
             const ordinalsAddress = address.address;
             setOrdinalsAddress(ordinalsAddress);
@@ -89,7 +90,7 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
             // Handle case when address with purpose "ordinals" is not found
             openPopupMessage('No Xverse wallet found');
           }
-  
+
           closePopup(); // Close the popup after receiving the address
         },
         onCancel: () => {
@@ -97,7 +98,7 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
           closePopup();
         },
       };
-  
+
       try {
         await getAddress(getAddressOptions);
       } catch (error) {
@@ -105,160 +106,48 @@ const PopupButton = ({ onWalletChange, onOrdinalsAddressChange }) => {
         closePopup()
         openPopupMessage('Xverse Wallet is not installed.');
       }
-    } 
+    }
   };
 
 
   return (
 
-    
+
     <div>
 
       {isPopupOpen && (
         <>
-        <div className="overlay" onClick={() => setIsPopupOpen(false)} />
-        <div className="popup-message" >
-          
-          <button className="close-button" onClick={() => setIsPopupOpen(false)}>Close</button>
-          
+          <div className="overlay" onClick={() => setIsPopupOpen(false)} />
+          <div className="popup-message" >
+
+            <button className="close-button" onClick={() => setIsPopupOpen(false)}>X</button>
+
             <div className="message-content">
-            {popupMessage}
+              {popupMessage}
             </div>
-          
-        </div>
+
+          </div>
         </>
       )}
 
-      <button className="open-button" onClick={openPopup} style={{ textAlign: "center" }}>Connect Wallet</button>
+      <button className="open-button" onClick={openPopup} style={{ textAlign: "center" }}>CONNECT</button>
 
       {isOpen && (
         <>
           <div className="overlay" onClick={closePopup} />
           <div className="popup">
             <div className="popup-content">
-              
-              <button className="close-button" onClick={closePopup}>Close</button>
+              <button className="close-button" onClick={closePopup}>X</button>
               <p className="wallet-text">Choose Wallet</p>
             </div>
             <div className="wallet-buttons">
-              <button onClick={handleGetAddressUniSat}>UNISAT WALLET</button>
-              <button onClick={handleGetAddressXverse}>XVERSE WALLET</button>
+              <button className="popup-button" onClick={handleGetAddressUniSat}>UNISAT</button>
+              <button className="popup-button" onClick={handleGetAddressXverse}>XVERSE</button>
             </div>
           </div>
         </>
       )}
 
-      <style jsx>{`
-        .overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.39);
-          z-index: 9998;
-        }
-
-        .popup {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -90%);
-          background: #1c1c1c;
-          padding: 16px;
-          border: 3px solid #131313;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-          z-index: 9999;
-          border-radius: 10px;
-          min-width: 250px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .popup-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.0);
-        }
-
-        .open-button {
-          font-size: 18px;
-          padding: 10px 20px;
-          height: 55px; /* Set the desired height */
-          width: 120px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-        }
-
-        .close-button {
-          font-size: 14px;
-          padding: 12px 12px !important;
-          width: 60px; /* Adjust the width to make the button smaller */
-          height: 38px;
-          position: absolute;
-          top: -8px; /* Adjust the top position as per your preference */
-          right: 10px; /* Adjust the right position as per your preference */
-        }
-
-        .wallet-buttons {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-top: -10px;
-        }
-
-        .wallet-text {
-          font-size: 2rem; /* You can adjust the font size to your preference */
-          margin-top: 40px; /* Adjust the margin top value to create spacing */
-          
-          text-align: center
-        }
-
-        .popup-open {
-          // overflow: hidden;
-        }
-
-        .popup-message {
-          position: fixed;
-          top: 20px; /* Adjust the top position as needed */
-          right: 20px; /* Adjust the right position as needed */
-          transform: translate(0, 0);
-          background: #1c1c1c;
-          padding: 16px;
-          border: 3px solid #131313;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-          z-index: 9999;
-          border-radius: 10px;
-          max-width: 180px;
-          min-width: 150px;
-          min-height: 60px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.0);
-          flex-wrap: wrap;
-        }
-        
-        .popup-message .close-button {
-          font-size: 14px;
-          padding: 10px 8px !important;
-          width: 60px;
-          height: 38px;
-          order: 1;
-          margin-left: auto;
-          white-space: nowrap;
-        }
-
-        .message-content {
-          font-size: 18px;
-          max-width: 70%;
-        }
-
-      `}</style>
     </div>
   );
 };
