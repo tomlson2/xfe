@@ -6,6 +6,7 @@
     width: 98%;
     height: 30px;
     background-color: #121212;
+    box-shadow: 0 0 4px rgba(112, 112, 112, 0.7);
     overflow: hidden;
     border-radius: 10px;
 }
