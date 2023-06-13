@@ -6,6 +6,7 @@ import ComingSoon from './pages/ComingSoon';
 import BTCAzukiSearch from './pages/BTCAzukiSearch';
 import BEANZSearch from './pages/BEANZSearch';
 import GamePage from './pages/GamePage';
+import ReucursivePunks from './pages/RecursivePunks'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/x-list" element={<XListPage />} />
         <Route path="/coming-soon" element={<ComingSoon />} />
         <Route path='/azuki-search' element={<BTCAzukiSearch />} />
+        <Route path='/recursive-punks' element={<ReucursivePunks />} />
         <Route path='/beanz-search' element={<BEANZSearch />} />
         <Route path='/game' element={<GamePage />} />
       </Routes>
