@@ -140,7 +140,7 @@ const Table = ({ data }) => {
           </td>
           <td>{item.og_alloc}</td>
           <td>{item.new_alloc}</td>
-          <td>{item.burn}</td>
+          {/* <td>{item.burn}</td> */}
         </tr>
       ))}
     </tbody>
