@@ -21,7 +21,7 @@ const RecursivePunks = () => {
     const blob = new Blob([svgContent], {type: "image/svg+xml;charset=utf-8"});
     saveAs(blob, "output.svg");
 
-    setIds(Array(4).fill(''));  // Clear all input fields
+    setIds(Array(6).fill(''));  // Clear all input fields
   }
 
   const handleInputChange = (index, event) => {
